@@ -335,6 +335,11 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 @media (max-width: 1023px) { .cta-banner { grid-template-columns: 1fr; } .cta-art { min-height: 180px; } .cta-text { padding: var(--space-8); } }
 @media (max-width: 639px) { .cta-text { padding: var(--space-6); } .cta-text .btn { width: 100%; } }
 
+.card-media img, .feature-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cta-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% center; }
+.cta-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-primary-700) 0%, rgb(8 72 189 / 0.55) 22%, rgb(8 72 189 / 0) 55%); }
+@media (max-width: 1023px) { .cta-art::after { background: linear-gradient(180deg, var(--color-primary-700) 0%, rgb(8 72 189 / 0) 55%); } }
+
 /* ---------- Faixa de contato ---------- */
 .contact-strip { display: grid; grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr)); gap: var(--space-6); align-items: center; padding-block: var(--space-10); }
 .contact-strip h2 { font-size: 22px; }
@@ -434,31 +439,9 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="inicio">
-  <!-- IMAGEM DO HERO: para usar uma foto, troque o <svg> abaixo por
-       <img src="hero.jpg" alt="" width="1600" height="900">  (proporção 16:9, tons azul/ciano) -->
+  <!-- IMAGEM DO HERO: hero.jpg (1920x1080, 16:9). Para trocar, substitua o arquivo. -->
   <div class="hero-art" aria-hidden="true">
-    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF4F7"/><stop offset=".55" stop-color="#C4E1EA"/><stop offset="1" stop-color="#A8D3E0"/></linearGradient>
-        <linearGradient id="hFar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FC7D3"/><stop offset="1" stop-color="#B9DAE4"/></linearGradient>
-        <linearGradient id="hMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E8FA5"/><stop offset="1" stop-color="#80B9C7"/></linearGradient>
-        <linearGradient id="hNear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#28607A"/><stop offset="1" stop-color="#1D465D"/></linearGradient>
-        <linearGradient id="hWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B3DCE7"/><stop offset="1" stop-color="#7FB6C6"/></linearGradient>
-        <radialGradient id="hSun" cx=".72" cy=".22" r=".35"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
-      </defs>
-      <rect width="1600" height="900" fill="url(#hSky)"/>
-      <rect width="1600" height="900" fill="url(#hSun)"/>
-      <path d="M0 470 L140 380 L260 430 L420 300 L560 400 L700 330 L820 250 L960 360 L1080 220 L1200 320 L1330 240 L1460 330 L1600 280 V600 H0Z" fill="url(#hFar)"/>
-      <path d="M1080 220 L1120 262 L1098 258 L1074 282 L1050 256 Z M820 250 L852 284 L832 280 L812 300 L796 276 Z M1330 240 L1362 270 L1340 268 L1322 288 L1306 264 Z" fill="#F4FAFC" opacity=".9"/>
-      <path d="M0 560 L180 470 L330 520 L520 420 L700 520 L880 440 L1040 520 L1220 430 L1400 500 L1600 440 V700 H0Z" fill="url(#hMid)" opacity=".9"/>
-      <rect y="560" width="1600" height="90" fill="#FFFFFF" opacity=".35"/>
-      <path d="M0 640 H1600 V900 H0Z" fill="url(#hWater)"/>
-      <path d="M760 900 C900 820 1000 760 1120 700 C1210 655 1270 630 1330 600 L1350 600 C1300 640 1250 680 1190 730 C1090 810 1010 860 960 900Z" fill="#1D465D"/>
-      <path d="M1180 900 C1250 820 1330 740 1420 670 C1480 625 1530 600 1600 580 V900Z" fill="url(#hNear)"/>
-      <path d="M860 900 C960 830 1050 775 1150 718 C1230 672 1290 640 1338 604" fill="none" stroke="#FCFCFD" stroke-width="5" stroke-dasharray="26 22" opacity=".9"/>
-      <path d="M0 700 C240 680 420 720 640 700 C820 684 980 700 1100 690" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".45"/>
-      <ellipse cx="560" cy="600" rx="700" ry="40" fill="#FFFFFF" opacity=".35"/>
-    </svg>
+    <img src="hero.jpg" alt="" width="1920" height="1080" fetchpriority="high">
   </div>
 
   <div class="container">
@@ -548,9 +531,9 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 
     <div class="grid grid-4">
       <article class="card card-insurance">
-        <div class="card-media" aria-hidden="true">
+        <div class="card-media">
           <span class="card-badge">Mais procurado</span>
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#D6E7EB"/><path d="M0 190 L90 130 L170 170 L260 100 L400 160 V300 H0Z" fill="#A8D3E0"/><path d="M150 300 C190 250 230 215 290 190 L310 190 C270 220 245 255 230 300Z" fill="#49768D"/><g fill="none" stroke="#0E213E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M110 200 l18 -38 c4 -8 10 -12 19 -12 h76 c9 0 15 4 19 12 l18 38"/><rect x="96" y="198" width="178" height="44" rx="12"/><path d="M118 242 v14 M252 242 v14"/></g><circle cx="132" cy="220" r="8" fill="#0556EA"/><circle cx="238" cy="220" r="8" fill="#0556EA"/></svg>
+          <img src="img/produto-primeiro-carro.jpg" alt="Jovem sorrindo, encostado em um carro, segurando a chave, com uma moto ao fundo" width="1200" height="900" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title">Primeiro carro ou moto</h3>
@@ -561,8 +544,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
       </article>
 
       <article class="card card-insurance">
-        <div class="card-media" aria-hidden="true">
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#CFE3EA"/><circle cx="300" cy="80" r="44" fill="#FFFFFF" opacity=".7"/><path d="M0 200 L120 150 L230 190 L400 130 V300 H0Z" fill="#80B9C7"/><g fill="none" stroke="#0E213E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M96 196 l18 -38 c4 -8 10 -12 19 -12 h76 c9 0 15 4 19 12 l18 38"/><rect x="82" y="194" width="178" height="44" rx="12"/></g><path d="M300 150 l34 14 v26 c0 22 -15 40 -34 47 c-19 -7 -34 -25 -34 -47 v-26z" fill="#0556EA"/><path d="M286 192 l10 10 l20 -20" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="card-media">
+          <img src="img/produto-automovel.jpg" alt="Carro branco em movimento por uma estrada ao pôr do sol, com montanhas ao fundo" width="1200" height="900" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title">Automóvel completo</h3>
@@ -573,8 +556,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
       </article>
 
       <article class="card card-insurance">
-        <div class="card-media" aria-hidden="true">
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#DCEBEF"/><path d="M0 230 C120 200 260 215 400 195 V300 H0Z" fill="#A8D3E0"/><g fill="none" stroke="#0E213E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M120 150 L200 90 L280 150"/><path d="M138 138 V232 H262 V138"/><path d="M182 232 V190 H218 V232"/></g><rect x="236" y="96" width="18" height="34" fill="#0E213E"/><circle cx="296" cy="214" r="22" fill="#0556EA"/><path d="M287 214 l7 7 l12 -13" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="card-media">
+          <img src="img/produto-residencial.jpg" alt="Casa moderna de dois andares com jardim e janelas iluminadas ao entardecer" width="1200" height="900" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title">Residencial</h3>
@@ -585,9 +568,9 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
       </article>
 
       <article class="card card-insurance">
-        <div class="card-media" aria-hidden="true">
+        <div class="card-media">
           <span class="card-badge info">Empresas</span>
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#D6E7EB"/><path d="M0 220 L140 190 L260 210 L400 180 V300 H0Z" fill="#A8D3E0"/><g fill="none" stroke="#0E213E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="160" cy="130" r="22"/><path d="M118 220 c4 -30 20 -48 42 -48 s38 18 42 48"/><circle cx="240" cy="138" r="18"/><path d="M212 220 c4 -24 14 -38 28 -38 s30 14 34 38"/></g><path d="M300 92 c-12 -14 -36 -6 -36 12 c0 18 36 36 36 36 s36 -18 36 -36 c0 -18 -24 -26 -36 -12z" fill="#E74E33"/></svg>
+          <img src="img/produto-saude-empresarial.jpg" alt="Equipe de profissionais conversando em um escritório moderno e iluminado" width="1200" height="900" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title">Saúde Empresarial</h3>
@@ -616,22 +599,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
           <li><svg class="icon"><use href="#i-chat"/></svg><div><strong>WhatsApp direto com corretor</strong><span>Nada de robô. Você fala com quem entende e resolve.</span></div></li>
         </ul>
       </div>
-      <!-- IMAGEM: troque o <svg> por <img src="estrada.jpg" alt="Estrada à beira de um lago" width="800" height="600" loading="lazy"> -->
-      <div class="feature-media" aria-hidden="true">
-        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="fSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6E7EB"/><stop offset="1" stop-color="#A8D3E0"/></linearGradient>
-            <linearGradient id="fLake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#80B9C7"/><stop offset="1" stop-color="#49768D"/></linearGradient>
-          </defs>
-          <rect width="800" height="600" fill="url(#fSky)"/>
-          <path d="M0 300 L120 210 L230 260 L360 160 L480 250 L600 180 L800 260 V340 H0Z" fill="#80B9C7"/>
-          <path d="M360 160 L392 190 L372 188 L352 206 L338 184Z M600 180 L628 206 L610 204 L594 220 L580 200Z" fill="#F4FAFC"/>
-          <path d="M0 340 L160 290 L300 330 L470 280 L640 320 L800 290 V380 H0Z" fill="#49768D"/>
-          <rect y="370" width="800" height="230" fill="url(#fLake)"/>
-          <path d="M800 380 L800 600 L330 600 C470 520 600 450 690 400 C730 380 760 378 800 380Z" fill="#28607A"/>
-          <path d="M470 600 C560 530 650 470 730 420 C760 402 780 396 800 394 L800 430 C760 440 720 465 670 500 C610 540 560 575 540 600Z" fill="#1D465D"/>
-          <path d="M505 600 C590 535 680 476 800 412" fill="none" stroke="#E8C547" stroke-width="5" stroke-dasharray="22 18"/>
-        </svg>
+      <div class="feature-media">
+        <img src="img/estrada.jpg" alt="Estrada curva à beira do mar, com a cidade e as montanhas ao fundo" width="1200" height="900" loading="lazy">
       </div>
     </div>
   </div>
@@ -741,16 +710,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
           <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar com um corretor
         </a>
       </div>
-      <div class="cta-art" aria-hidden="true">
-        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="cFade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0848BD"/><stop offset=".35" stop-color="#0848BD" stop-opacity="0"/></linearGradient></defs>
-          <rect width="600" height="400" fill="#0556EA"/>
-          <path d="M0 260 L110 170 L210 230 L330 120 L450 210 L600 140 V400 H0Z" fill="#3A589B" opacity=".55"/>
-          <path d="M0 320 L150 250 L280 300 L420 230 L600 290 V400 H0Z" fill="#0E213E" opacity=".35"/>
-          <path d="M420 110 l70 28 v54 c0 46 -30 82 -70 98 c-40 -16 -70 -52 -70 -98 v-54z" fill="none" stroke="#55CEE9" stroke-width="10" stroke-linejoin="round"/>
-          <path d="M390 196 l20 20 l40 -40" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect width="600" height="400" fill="url(#cFade)"/>
-        </svg>
+      <div class="cta-art">
+        <img src="img/cta-atendimento.jpg" alt="Corretor atendendo um casal em um escritório, revisando documentos" width="1200" height="800" loading="lazy">
       </div>
     </div>
   </div>
