@@ -434,9 +434,31 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="inicio">
-  <!-- IMAGEM DO HERO: hero.jpg (1920x1080, 16:9). Para trocar, substitua o arquivo. -->
+  <!-- IMAGEM DO HERO: para usar uma foto, troque o <svg> abaixo por
+       <img src="hero.jpg" alt="" width="1600" height="900">  (proporção 16:9, tons azul/ciano) -->
   <div class="hero-art" aria-hidden="true">
-    <img src="hero.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF4F7"/><stop offset=".55" stop-color="#C4E1EA"/><stop offset="1" stop-color="#A8D3E0"/></linearGradient>
+        <linearGradient id="hFar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FC7D3"/><stop offset="1" stop-color="#B9DAE4"/></linearGradient>
+        <linearGradient id="hMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E8FA5"/><stop offset="1" stop-color="#80B9C7"/></linearGradient>
+        <linearGradient id="hNear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#28607A"/><stop offset="1" stop-color="#1D465D"/></linearGradient>
+        <linearGradient id="hWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B3DCE7"/><stop offset="1" stop-color="#7FB6C6"/></linearGradient>
+        <radialGradient id="hSun" cx=".72" cy=".22" r=".35"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="1600" height="900" fill="url(#hSky)"/>
+      <rect width="1600" height="900" fill="url(#hSun)"/>
+      <path d="M0 470 L140 380 L260 430 L420 300 L560 400 L700 330 L820 250 L960 360 L1080 220 L1200 320 L1330 240 L1460 330 L1600 280 V600 H0Z" fill="url(#hFar)"/>
+      <path d="M1080 220 L1120 262 L1098 258 L1074 282 L1050 256 Z M820 250 L852 284 L832 280 L812 300 L796 276 Z M1330 240 L1362 270 L1340 268 L1322 288 L1306 264 Z" fill="#F4FAFC" opacity=".9"/>
+      <path d="M0 560 L180 470 L330 520 L520 420 L700 520 L880 440 L1040 520 L1220 430 L1400 500 L1600 440 V700 H0Z" fill="url(#hMid)" opacity=".9"/>
+      <rect y="560" width="1600" height="90" fill="#FFFFFF" opacity=".35"/>
+      <path d="M0 640 H1600 V900 H0Z" fill="url(#hWater)"/>
+      <path d="M760 900 C900 820 1000 760 1120 700 C1210 655 1270 630 1330 600 L1350 600 C1300 640 1250 680 1190 730 C1090 810 1010 860 960 900Z" fill="#1D465D"/>
+      <path d="M1180 900 C1250 820 1330 740 1420 670 C1480 625 1530 600 1600 580 V900Z" fill="url(#hNear)"/>
+      <path d="M860 900 C960 830 1050 775 1150 718 C1230 672 1290 640 1338 604" fill="none" stroke="#FCFCFD" stroke-width="5" stroke-dasharray="26 22" opacity=".9"/>
+      <path d="M0 700 C240 680 420 720 640 700 C820 684 980 700 1100 690" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".45"/>
+      <ellipse cx="560" cy="600" rx="700" ry="40" fill="#FFFFFF" opacity=".35"/>
+    </svg>
   </div>
 
   <div class="container">
