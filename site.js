@@ -185,6 +185,19 @@
     window.open('https://wa.me/' + WA_NUMERO + '?text=' + msg, '_blank', 'noopener');
   });
 
+  /* ---------- Carro percorrendo a linha do rodapé ---------- */
+  var road = document.getElementById('footerRoad');
+  if (road) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { road.classList.add('is-driving'); io.disconnect(); }
+      }, { threshold: 0.6 });
+      io.observe(road);
+    } else {
+      road.classList.add('is-driving');
+    }
+  }
+
   /* ---------- FAQ acordeão ---------- */
   document.querySelectorAll('.faq-q').forEach(function (btn) {
     btn.addEventListener('click', function () {
