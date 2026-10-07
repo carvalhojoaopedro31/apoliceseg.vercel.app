@@ -7,29 +7,56 @@
 <title>Apólice Seg · Corretora de Seguros</title>
 <meta name="description" content="Corretora de Seguros em Sorocaba e todo o Brasil: Automóvel, Saúde, Vida, Residencial e Empresarial. Cotação rápida pelo WhatsApp.">
 <meta name="theme-color" content="#0556EA">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://apoliceseg.vercel.app/">
 <link rel="icon" type="image/png" href="logo-simbolo-azul.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Apólice Seg">
+<meta property="og:url" content="https://apoliceseg.vercel.app/">
 <meta property="og:title" content="Apólice Seg · Corretora de Seguros">
-<meta property="og:description" content="Cotamos nas melhores seguradoras do Brasil e te apresentamos a opção que cabe no seu bolso.">
+<meta property="og:description" content="Cotamos nas melhores seguradoras do Brasil e te apresentamos a opção que faz sentido pro seu momento.">
+<meta property="og:image" content="https://apoliceseg.vercel.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Apólice Seg: proteção sob medida, sem burocracia">
 <meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="preload" href="fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "Apólice Seg",
+  "url": "https://apoliceseg.vercel.app/",
+  "logo": "https://apoliceseg.vercel.app/logo-apolice-seg.png",
+  "image": "https://apoliceseg.vercel.app/og-image.jpg",
+  "telephone": "+55-15-3232-0077",
+  "email": "contato@apoliceseg.com.br",
+  "taxID": "21.636.796/0001-43",
+  "address": { "@type": "PostalAddress", "addressLocality": "Sorocaba", "addressRegion": "SP", "addressCountry": "BR" },
+  "areaServed": { "@type": "Country", "name": "Brasil" }
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
 <!-- Ícones (traço único, cantos arredondados) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<svg class="sprite" width="0" height="0" aria-hidden="true">
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5.5 6.5-5.5s5.7 2.1 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18 14.8c1.9.7 3.1 2.6 3.5 5.2"/></symbol>
   <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4z"/><path d="M9 4v13.5M15 6.5V20"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a11 11 0 005.2 5.2l1.4-2.1 4.2 1.6V17a2.5 2.5 0 01-2.7 2.5C9.5 19 5 14.5 4.5 6.2A2.5 2.5 0 015 3.5z"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19L12 3.5z"/><path d="M12 10v4.5M12 17.2v.1"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -47,8 +74,8 @@
   <div class="container header-inner">
     <!-- Logo da marca (não alterar): logo-apolice-seg.png -->
     <a href="#inicio" class="brand-lockup" aria-label="Apólice Seg — página inicial">
-      <img src="logo-apolice-seg.png" alt="Apólice Seg" class="brand-logo" width="550" height="200"
-           onerror="this.hidden=true;document.getElementById('bf1').hidden=false">
+      <picture><source type="image/webp" srcset="logo-apolice-seg-280.webp"><img src="logo-apolice-seg.png" alt="Apólice Seg" class="brand-logo" width="550" height="200"
+           onerror="this.hidden=true;document.getElementById('bf1').hidden=false"></picture>
       <span id="bf1" class="brand-text" hidden>Apólice <span class="accent">Seg</span></span>
     </a>
 
@@ -61,7 +88,6 @@
       <a class="nav-link" href="sobre.html">Sobre</a>
       <a class="nav-link" href="#diferenciais">Por que nós</a>
       <a class="nav-link" href="#equipe">Equipe</a>
-      <a class="nav-link" href="#depoimentos">Clientes</a>
       <a class="nav-link" href="#faq">Dúvidas</a>
       <div class="nav-actions">
         <a class="nav-wa" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener">
@@ -73,18 +99,18 @@
   </div>
 </header>
 
-<main>
+<main id="conteudo">
 
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="inicio">
   <!-- IMAGEM DO HERO: hero.jpg (1920x1080, 16:9). Para trocar, substitua o arquivo. -->
   <div class="hero-art" aria-hidden="true">
-    <img src="hero.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+    <picture><source type="image/webp" srcset="hero-960.webp 960w, hero-1920.webp 1920w" sizes="100vw"><img src="hero.jpg" alt="" width="1920" height="1080" fetchpriority="high"></picture>
   </div>
 
   <div class="container">
     <div class="hero-content">
-      <p class="hero-eyebrow"><svg class="icon icon-sm"><use href="#i-shield"/></svg>Corretora de seguros</p>
+      <p class="hero-eyebrow">Corretora de seguros · Sorocaba/SP</p>
       <h1>Proteção sob medida, <em>sem burocracia</em></h1>
       <p class="hero-sub">A gente cota nas melhores seguradoras do Brasil e te apresenta a opção que faz sentido pro seu bolso e pro seu momento.</p>
       <div class="hero-actions">
@@ -94,8 +120,8 @@
         </a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><svg class="icon"><use href="#i-users"/></svg><div><strong>Atendimento humano</strong><span>Corretor de verdade</span></div></div>
-        <div class="hero-stat"><svg class="icon"><use href="#i-compare"/></svg><div><strong>+15 seguradoras</strong><span>Comparamos por você</span></div></div>
+        <div class="hero-stat"><svg class="icon"><use href="#i-users"/></svg><div><strong>Atendimento direto</strong><span>Você fala com o corretor</span></div></div>
+        <div class="hero-stat"><svg class="icon"><use href="#i-compare"/></svg><div><strong>+15 seguradoras</strong><span>Comparamos por você</span><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Confirmar: nº de seguradoras</span></span></div></div>
         <div class="hero-stat"><svg class="icon"><use href="#i-map"/></svg><div><strong>Todo o Brasil</strong><span>Base em Sorocaba</span></div></div>
       </div>
     </div>
@@ -138,20 +164,23 @@
 </div>
 
 <!-- ==================== SEGURADORAS ==================== -->
-<section class="partners" id="seguradoras">
+<section class="partners" id="seguradoras" data-lembrete-bloco>
   <div class="container">
     <p class="partners-label">Seguradoras parceiras para cotação</p>
     <div class="logo-strip">
-      <!-- EDITÁVEL: troque o texto por <img src="seguradora.png" alt="Nome"> -->
-      <div class="logo-chip">Seguradora 1</div>
-      <div class="logo-chip">Seguradora 2</div>
-      <div class="logo-chip">Seguradora 3</div>
-      <div class="logo-chip">Seguradora 4</div>
-      <div class="logo-chip">Seguradora 5</div>
-      <div class="logo-chip">Seguradora 6</div>
-      <div class="logo-chip">Seguradora 7</div>
-      <div class="logo-chip">Seguradora 8</div>
+      <!-- LEMBRETE: esta seção só aparece com ?lembretes=1 na URL. Para publicá-la, troque cada
+           <div class="logo-chip"> por <img src="seguradora-x.png" alt="Nome da seguradora">
+           e remova o atributo data-lembrete-bloco da <section>. -->
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
+      <div class="logo-chip">Logo da seguradora</div>
     </div>
+    <p class="lembrete lembrete-bloco"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Trocar pelas logos reais das seguradoras. Hoje esta seção fica escondida do público.</span></p>
   </div>
 </section>
 
@@ -167,50 +196,50 @@
       <a class="link-arrow" href="#simulador">Fazer minha cotação <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
     </div>
 
-    <div class="grid grid-4">
-      <article class="card card-insurance">
-        <div class="card-media">
-          <span class="card-badge">Mais procurado</span>
-          <img src="img/produto-primeiro-carro.jpg" alt="Jovem encostado em um carro, segurando a chave, com uma moto ao fundo" width="1200" height="900" loading="lazy">
+    <div class="product-grid">
+      <article class="product">
+        <div class="product-media">
+          <span class="product-badge">Mais procurado</span>
+          <picture><source type="image/webp" srcset="img/produto-primeiro-carro-640.webp 640w, img/produto-primeiro-carro-1200.webp 1200w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"><img src="img/produto-primeiro-carro.jpg" alt="Jovem encostado em um carro, segurando a chave, com uma moto ao fundo" width="1200" height="900" loading="lazy"></picture>
         </div>
-        <div class="card-body">
-          <h3 class="card-title">Primeiro carro ou moto</h3>
-          <p class="card-desc">Cobertura essencial pra quem está começando. A gente compara e indica a melhor opção.</p>
-          <a href="sobre.html#automovel" class="card-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
-
-      <article class="card card-insurance">
-        <div class="card-media">
-          <img src="img/produto-automovel.jpg" alt="Carro branco em movimento por uma estrada ao pôr do sol, com montanhas ao fundo" width="1200" height="900" loading="lazy">
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Automóvel completo</h3>
-          <p class="card-desc">Guincho 24h, carro reserva e proteção contra terceiros inclusos.</p>
-          <a href="sobre.html#automovel" class="card-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
+        <div class="product-body">
+          <h3 class="product-title">Primeiro carro ou moto</h3>
+          <p class="product-desc">Cobertura essencial pra quem está começando. A gente compara e indica a melhor opção.</p>
+          <a href="sobre.html#automovel" class="product-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
 
-      <article class="card card-insurance">
-        <div class="card-media">
-          <img src="img/produto-residencial.jpg" alt="Casa moderna de dois andares com jardim e janelas iluminadas ao entardecer" width="1200" height="900" loading="lazy">
+      <article class="product">
+        <div class="product-media">
+          <picture><source type="image/webp" srcset="img/produto-automovel-640.webp 640w, img/produto-automovel-1200.webp 1200w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"><img src="img/produto-automovel.jpg" alt="Carro branco em movimento por uma estrada ao pôr do sol, com montanhas ao fundo" width="1200" height="900" loading="lazy"></picture>
         </div>
-        <div class="card-body">
-          <h3 class="card-title">Residencial</h3>
-          <p class="card-desc">Incêndio, roubo, danos elétricos e assistência de encanador e eletricista.</p>
-          <a href="sobre.html#residencial" class="card-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
+        <div class="product-body">
+          <h3 class="product-title">Automóvel completo</h3>
+          <p class="product-desc">Guincho 24h, carro reserva e proteção contra terceiros inclusos.</p>
+          <a href="sobre.html#automovel" class="product-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
 
-      <article class="card card-insurance">
-        <div class="card-media">
-          <span class="card-badge info">Empresas</span>
-          <img src="img/produto-saude-empresarial.jpg" alt="Equipe de profissionais conversando em um escritório moderno e iluminado" width="1200" height="900" loading="lazy">
+      <article class="product">
+        <div class="product-media">
+          <picture><source type="image/webp" srcset="img/produto-residencial-640.webp 640w, img/produto-residencial-1200.webp 1200w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"><img src="img/produto-residencial.jpg" alt="Casa moderna de dois andares com jardim e janelas iluminadas ao entardecer" width="1200" height="900" loading="lazy"></picture>
         </div>
-        <div class="card-body">
-          <h3 class="card-title">Saúde Empresarial</h3>
-          <p class="card-desc">Planos empresariais a partir de 2 vidas, com cobertura de verdade pra sua equipe.</p>
-          <a href="sobre.html#saude" class="card-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
+        <div class="product-body">
+          <h3 class="product-title">Residencial</h3>
+          <p class="product-desc">Incêndio, roubo, danos elétricos e assistência de encanador e eletricista.</p>
+          <a href="sobre.html#residencial" class="product-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-media">
+          <span class="product-badge info">Empresas</span>
+          <picture><source type="image/webp" srcset="img/produto-saude-empresarial-640.webp 640w, img/produto-saude-empresarial-1200.webp 1200w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"><img src="img/produto-saude-empresarial.jpg" alt="Equipe de profissionais conversando em um escritório moderno e iluminado" width="1200" height="900" loading="lazy"></picture>
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">Saúde Empresarial</h3>
+          <p class="product-desc">Planos empresariais a partir de 2 vidas, com cobertura de verdade pra sua equipe.</p>
+          <a href="sobre.html#saude" class="product-link">Saiba mais <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
     </div>
@@ -218,7 +247,7 @@
 </section>
 
 <!-- ==================== DIFERENCIAIS ==================== -->
-<section class="section" id="diferenciais" style="padding-top:0">
+<section class="section section-flush" id="diferenciais">
   <div class="container">
     <div class="feature-panel">
       <div class="feature-text">
@@ -226,14 +255,11 @@
         <h2>Na hora H, faz diferença ter <em>quem resolve</em></h2>
         <p>Seguro bom é o que funciona quando você precisa. A gente acompanha cada etapa, do orçamento ao sinistro.</p>
         <ul class="feature-list">
-          <li><svg class="icon"><use href="#i-headset"/></svg><div><strong>Atendimento 24h</strong><span>Suporte real a qualquer hora, em qualquer lugar do Brasil.</span></div></li>
+          <li><svg class="icon"><use href="#i-headset"/></svg><div><strong>Atendimento 24h</strong><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Confirmar: 24h é real?</span></span><span>Suporte real a qualquer hora, em qualquer lugar do Brasil.</span></div></li>
           <li><svg class="icon"><use href="#i-compare"/></svg><div><strong>Comparativo entre seguradoras</strong><span>Cotamos em várias e mostramos o melhor custo-benefício.</span></div></li>
           <li><svg class="icon"><use href="#i-shield"/></svg><div><strong>Suporte em sinistros</strong><span>Se precisar usar o seguro, a gente cuida de todo o processo.</span></div></li>
-          <li><svg class="icon"><use href="#i-chat"/></svg><div><strong>WhatsApp direto com corretor</strong><span>Nada de robô. Você fala com quem entende e resolve.</span></div></li>
+          <li><svg class="icon"><use href="#i-chat"/></svg><div><strong>WhatsApp direto com o corretor</strong><span>Você fala com quem entende do assunto e resolve.</span></div></li>
         </ul>
-      </div>
-      <div class="feature-media">
-        <img src="img/estrada.jpg" alt="Estrada curva à beira do mar, com a cidade e as montanhas ao fundo" width="1200" height="900" loading="lazy">
       </div>
     </div>
   </div>
@@ -246,65 +272,39 @@
       <div class="sec-head">
         <p class="sec-eyebrow">Quem cuida de você</p>
         <h2 class="sec-title">Seus corretores, de nome e sobrenome</h2>
-        <p class="sec-sub">Profissionais certificados, prontos pra encontrar a proteção certa pra você. Sem central, sem fila: você fala direto com a gente.</p>
+        <p class="sec-sub">Profissionais prontos pra encontrar a proteção certa pra você. Sem central, sem fila: você fala direto com a gente. <span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Confirmar: "certificados"</span></span></p>
       </div>
-      <div class="stat-row">
-        <div class="stat"><strong>+15</strong><span><svg class="icon"><use href="#i-shield"/></svg>seguradoras comparadas</span></div>
-        <div class="stat"><strong>30 min</strong><span><svg class="icon"><use href="#i-clock"/></svg>pra receber a cotação</span></div>
+      <div class="stat-row"><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Confirmar: +15 seguradoras e 30 min</span></span>
+        <div class="stat"><strong>+15</strong><span>seguradoras comparadas</span></div>
+        <div class="stat"><strong>30 min</strong><span>pra receber a cotação</span></div>
       </div>
     </div>
-    <div class="team-grid">
-      <div class="card team-card">
-        <!-- EDITÁVEL: troque a letra por <img src="luciana.jpg" alt="Luciana Ribeiro"> -->
-        <div class="team-avatar" aria-hidden="true">LR</div>
-        <h3>Luciana Ribeiro</h3>
-        <p class="team-role">Corretora de Seguros</p>
+    <ul class="team-list">
+      <li class="team-member">
+        <!-- LEMBRETE: troque a sigla por <img src="luciana.jpg" alt="Luciana Ribeiro"> -->
+        <span class="team-avatar" aria-hidden="true">LR</span>
+        <div class="team-info"><h3>Luciana Ribeiro</h3><p class="team-role">Corretora de Seguros</p><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Colocar foto da Luciana</span></span></div>
         <a href="https://wa.me/551532320077?text=Ol%C3%A1%20Luciana!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener" class="team-wa" data-corretor="luciana"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar com Luciana</a>
-      </div>
-      <div class="card team-card">
-        <!-- EDITÁVEL: troque a letra por <img src="pedro.jpg" alt="Pedro Henrique"> -->
-        <div class="team-avatar" aria-hidden="true">PH</div>
-        <h3>Pedro Henrique</h3>
-        <p class="team-role">Corretor de Seguros</p>
+      </li>
+      <li class="team-member">
+        <!-- LEMBRETE: troque a sigla por <img src="pedro.jpg" alt="Pedro Henrique"> -->
+        <span class="team-avatar" aria-hidden="true">PH</span>
+        <div class="team-info"><h3>Pedro Henrique</h3><p class="team-role">Corretor de Seguros</p><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Colocar foto do Pedro</span></span></div>
         <a href="https://wa.me/551532320077?text=Ol%C3%A1%20Pedro!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener" class="team-wa" data-corretor="pedro"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar com Pedro</a>
-      </div>
+      </li>
+    </ul>
     </div>
   </div>
 </section>
 
-<!-- ==================== DEPOIMENTOS ==================== -->
-<section class="section sec-alt" id="depoimentos">
-  <div class="container">
-    <div class="sec-head center">
-      <p class="sec-eyebrow">Clientes</p>
-      <h2 class="sec-title">O que dizem sobre a gente</h2>
-    </div>
-    <div class="grid grid-3">
-      <figure class="card test-card" style="margin:0">
-        <div class="test-stars" aria-label="5 de 5 estrelas">★★★★★</div>
-        <blockquote class="test-quote" style="margin:0">Achei que seguro de carro ia ser uma dor de cabeça. Fizeram tudo pelo WhatsApp em menos de uma hora. Parcela que cabe no bolso.</blockquote>
-        <figcaption class="test-author"><span class="test-initial" aria-hidden="true">L</span><div><strong>Lucas M.</strong><span>Sorocaba</span></div></figcaption>
-      </figure>
-      <figure class="card test-card" style="margin:0">
-        <div class="test-stars" aria-label="5 de 5 estrelas">★★★★★</div>
-        <blockquote class="test-quote" style="margin:0">Migramos o plano de saúde da empresa e tudo foi explicado com calma, sem pressa. O atendimento é consultivo de verdade.</blockquote>
-        <figcaption class="test-author"><span class="test-initial" aria-hidden="true">F</span><div><strong>Fernanda R.</strong><span>Empresária</span></div></figcaption>
-      </figure>
-      <figure class="card test-card" style="margin:0">
-        <div class="test-stars" aria-label="5 de 5 estrelas">★★★★★</div>
-        <blockquote class="test-quote" style="margin:0">Quando bateram no meu carro, liguei pro corretor e ele resolveu tudo: guincho, vistoria, carro reserva. Sem estresse.</blockquote>
-        <figcaption class="test-author"><span class="test-initial" aria-hidden="true">R</span><div><strong>Rafael S.</strong><span>Votorantim</span></div></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
+<!-- DEPOIMENTOS: seção removida de propósito. Só volte com depoimentos reais, com nome e autorização por escrito do cliente. -->
 
 <!-- ==================== FAQ ==================== -->
 <section class="section" id="faq">
   <div class="container">
     <div class="sec-head center">
       <p class="sec-eyebrow">Perguntas frequentes</p>
-      <h2 class="sec-title">Tire suas dúvidas</h2>
+      <h2 class="sec-title">Tire suas dúvidas</h2><span class="lembrete" role="note"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Conferir respostas: 30 min e +15 seguradoras</span></span>
     </div>
     <div class="faq-wrap">
       <div class="faq-item">
@@ -332,31 +332,27 @@
 </section>
 
 <!-- ==================== BANNER CTA ==================== -->
-<section class="section" style="padding-top:0">
+<section class="section section-flush">
   <div class="container">
     <div class="cta-banner">
       <div class="cta-text">
         <p class="sec-eyebrow">Cotação sem compromisso</p>
         <h2>Pronto pra proteger o que importa?</h2>
-        <p>Fale com um corretor agora. Sem robô, sem espera.</p>
+        <p>Conte o que você precisa proteger e receba a cotação pelo WhatsApp.</p>
         <a href="https://wa.me/551532320077?text=Ol%C3%A1!%20Quero%20cotar%20meu%20seguro%20com%20a%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener" class="btn btn-white">
           <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar com um corretor
         </a>
       </div>
       <div class="cta-art">
-        <img src="img/cta-atendimento.jpg" alt="Corretor atendendo um casal em um escritório, revisando documentos" width="1200" height="800" loading="lazy">
+        <picture><source type="image/webp" srcset="img/cta-atendimento-640.webp 640w, img/cta-atendimento-1200.webp 1200w" sizes="(max-width: 1023px) 100vw, 50vw"><img src="img/cta-atendimento.jpg" alt="Corretor atendendo um casal em um escritório, revisando documentos" width="1200" height="800" loading="lazy"></picture>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ==================== CONTATO ==================== -->
-<section style="border-top:1px solid var(--color-neutral-200)">
+<section class="contact-section" aria-label="Contato">
   <div class="container contact-strip">
-    <div>
-      <h2>Pronto pra começar?</h2>
-      <p>Tem dúvida? Nossa equipe te ajuda a achar a proteção certa.</p>
-    </div>
     <div class="contact-item"><svg class="icon"><use href="#i-whatsapp"/></svg><div><strong>WhatsApp</strong><a href="https://wa.me/551532320077" target="_blank" rel="noopener">(15) 3232-0077</a></div></div>
     <div class="contact-item"><svg class="icon"><use href="#i-mail"/></svg><div><strong>E-mail</strong><a href="mailto:contato@apoliceseg.com.br">contato@apoliceseg.com.br</a></div></div>
     <div class="contact-item"><svg class="icon"><use href="#i-pin"/></svg><div><strong>Onde estamos</strong><span>Sorocaba / SP · Atendemos todo o Brasil</span></div></div>
@@ -370,8 +366,8 @@
   <div class="container">
     <div class="footer-brand-row">
       <a href="#inicio" class="brand-lockup" aria-label="Apólice Seg">
-        <img src="logo-apolice-seg-branco.png" alt="Apólice Seg" class="brand-logo" width="550" height="200"
-             onerror="this.hidden=true;document.getElementById('bf2').hidden=false">
+        <picture><source type="image/webp" srcset="logo-apolice-seg-branco-280.webp"><img src="logo-apolice-seg-branco.png" alt="Apólice Seg" class="brand-logo" width="550" height="200"
+             onerror="this.hidden=true;document.getElementById('bf2').hidden=false"></picture>
         <span id="bf2" class="brand-text" hidden>Apólice <span class="accent">Seg</span></span>
       </a>
       <span class="footer-road" id="footerRoad" aria-hidden="true">
@@ -381,7 +377,7 @@
 
     <div class="footer-grid">
       <div class="footer-column">
-        <h2 class="footer-title">Canais de atendimento</h2>
+        <p class="footer-title">Canais de atendimento</p>
         <a class="footer-wa-btn" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Atendimento pelo WhatsApp</a>
         <a class="footer-contact" href="tel:+551532320077"><svg class="icon"><use href="#i-phone"/></svg><span><b>Central</b> (15) 3232-0077</span></a>
         <a class="footer-contact" href="mailto:contato@apoliceseg.com.br"><svg class="icon"><use href="#i-mail"/></svg><span>contato@apoliceseg.com.br</span></a>
@@ -389,7 +385,7 @@
       </div>
 
       <div class="footer-column">
-        <h2 class="footer-title">Produtos</h2>
+        <p class="footer-title">Produtos</p>
         <ul>
           <li><a href="sobre.html#automovel">Seguro de Automóvel</a></li>
           <li><a href="sobre.html#saude">Plano de Saúde</a></li>
@@ -400,7 +396,7 @@
       </div>
 
       <div class="footer-column">
-        <h2 class="footer-title">Links úteis</h2>
+        <p class="footer-title">Links úteis</p>
         <ul>
           <li><a href="#simulador">Fazer cotação</a></li>
           <li><a href="sobre.html">Sobre a Apólice Seg</a></li>
@@ -415,6 +411,7 @@
     <div class="footer-legal">
       <!-- Preenchido pelo script a partir de CONFIG.susep / CONFIG.cnpj -->
       <p id="legalInfo" hidden></p>
+      <p class="lembrete lembrete-bloco"><svg class="icon icon-sm"><use href="#i-alert"/></svg><span class="lembrete-txt">Preencher em site.js: número da SUSEP, ID do Google Analytics (GA4) e ID do Meta Pixel.</span></p>
       <p>A Apólice Seg é uma corretora de seguros e não é seguradora nem operadora de planos de saúde. Os produtos são oferecidos e garantidos pelas seguradoras e operadoras parceiras, a quem cabe a aceitação do risco, a regulação e o pagamento de indenizações. A aceitação da proposta está sujeita à análise do risco. Planos de saúde são regulados pela ANS. Consulte a situação cadastral do corretor em <a href="https://www.gov.br/susep/pt-br" target="_blank" rel="noopener">gov.br/susep</a>.</p>
       <p class="footer-copy">© 2026 Apólice Seg · Corretora de Seguros. Todos os direitos reservados.</p>
     </div>

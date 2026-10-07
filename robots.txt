@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://apoliceseg.vercel.app/sitemap.xml
