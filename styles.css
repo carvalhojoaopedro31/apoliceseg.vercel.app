@@ -414,6 +414,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .compare-tag--before { left: var(--space-4); background: var(--color-dark); color: var(--color-white); }
 .compare-tag--after { right: var(--space-4); background: var(--color-primary-600); color: var(--color-white); bottom: 40px; }
 .story--compare.no-photo, .fx-antes-depois .story--compare.no-photo { display: none; }
+.story--compare .story-quote, .story--compare .story-rec { display: none !important; }
+.fx-camera .story--compare .story-media::before { display: none; }
 .story.no-photo { min-height: 0; }
 .story.no-photo .story-media { display: none; }
 .story.no-photo .story-body { width: 100%; max-width: 760px; }

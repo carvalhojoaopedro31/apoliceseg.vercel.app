@@ -215,7 +215,7 @@
   }
 
   /* ---------- Comparador "sem seguro" x "com seguro" ---------- */
-  document.querySelectorAll('[data-compare]').forEach(function (box) {
+  function iniciarComparador(box) {
     var range = box.querySelector('.compare-range');
     if (!range) return;
     var tocou = false;
@@ -240,7 +240,49 @@
       })(performance.now());
     }, { threshold: 0.6 });
     ioc.observe(box);
-  });
+  }
+  document.querySelectorAll('[data-compare]').forEach(iniciarComparador);
+
+  /* Se existir a foto par (data-depois ou data-antes), a foto única vira comparador.
+     Sem a foto par, a história continua como está. Só roda com o recurso ligado. */
+  function criarComparador(story) {
+    var media = story.querySelector('.story-media');
+    var foto = media && media.querySelector('img');
+    var parSrc = story.getAttribute('data-depois') || story.getAttribute('data-antes');
+    if (!foto || !parSrc || story.querySelector('[data-compare]')) return;
+    var fotoEhAntes = story.hasAttribute('data-depois');
+    var par = new Image();
+    par.onload = function () {
+      var box = document.createElement('div');
+      box.className = 'compare';
+      box.setAttribute('data-compare', '');
+      par.alt = story.getAttribute('data-par-alt') || '';
+      par.className = fotoEhAntes ? 'compare-after' : 'compare-before';
+      foto.className = fotoEhAntes ? 'compare-before' : 'compare-after';
+      foto.removeAttribute('loading');
+      box.appendChild(par);
+      box.appendChild(foto);
+      box.insertAdjacentHTML('beforeend',
+        '<span class="compare-tag compare-tag--before">Sem seguro</span>' +
+        '<span class="compare-tag compare-tag--after">Com seguro</span>' +
+        '<span class="compare-handle" aria-hidden="true"><i></i></span>' +
+        '<input class="compare-range" type="range" min="0" max="100" value="50" aria-label="Arraste para comparar a situação sem seguro e com seguro">');
+      media.insertBefore(box, media.firstChild);
+      story.classList.add('story--compare');
+      iniciarComparador(box);
+    };
+    par.src = parSrc;
+  }
+  if (document.documentElement.classList.contains('fx-antes-depois') && 'IntersectionObserver' in window) {
+    var iop = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        iop.unobserve(e.target);
+        criarComparador(e.target);
+      });
+    }, { rootMargin: '600px 0px' });
+    document.querySelectorAll('.story[data-depois], .story[data-antes]').forEach(function (st) { iop.observe(st); });
+  }
 
   /* ---------- FAQ acordeão ---------- */
   document.querySelectorAll('.faq-q').forEach(function (btn) {
