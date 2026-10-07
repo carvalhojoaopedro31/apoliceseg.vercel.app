@@ -22,7 +22,7 @@
     /* Recursos visuais da página Sobre. Troque true por false pra desligar
        qualquer um deles, sem apagar nada. */
     recursos: {
-      camera:      true,  /* marca "REC" e efeito de câmera de segurança nas fotos */
+      camera:      false, /* marca "REC" e efeito de câmera de segurança nas fotos (desligado) */
       frases:      true,  /* balão com a frase de quem achou que não ia precisar */
       antesDepois: true   /* comparador "sem seguro" x "com seguro" */
     }
