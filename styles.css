@@ -333,7 +333,7 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .footer-brand-row { display: flex; align-items: flex-end; gap: var(--space-6); margin-bottom: var(--space-10); }
 .footer-brand-row .brand-logo { height: 44px; }
 .footer-road { position: relative; flex: 1; height: 44px; border-bottom: 2px solid rgb(255 255 255 / 0.28); }
-.footer-car { position: absolute; left: 0; bottom: 0; width: 80px; height: auto; color: var(--color-white); }
+.footer-car { position: absolute; left: 0; bottom: -3px; width: 80px; height: auto; color: var(--color-white); }
 .footer-road.is-driving .footer-car { animation: footer-drive 7s cubic-bezier(.45, 0, .25, 1) forwards; }
 @keyframes footer-drive { from { left: 0; } to { left: calc(100% - 80px); } }
 @media (prefers-reduced-motion: reduce) { .footer-car { left: calc(100% - 80px); animation: none !important; } }
