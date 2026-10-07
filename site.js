@@ -22,19 +22,24 @@
     /* Recursos visuais da página Sobre. Troque true por false pra desligar
        qualquer um deles, sem apagar nada. */
     recursos: {
-      camera:      false, /* marca "REC" e efeito de câmera de segurança nas fotos (desligado) */
       frases:      true,  /* balão com a frase de quem achou que não ia precisar */
       antesDepois: true   /* comparador "sem seguro" x "com seguro" */
-    }
+    },
+    /* Histórias da página Sobre que já têm a foto par (sem seguro x com seguro).
+       Quando mandar a foto, suba o arquivo em img/sobre/ e acrescente o nome aqui.
+       Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial'.
+       Cada foto precisa ter as versões .jpg e .webp (-800 e -1600). */
+    pares: []
   };
 
   /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
   (function () {
     var r = CONFIG.recursos || {};
     var el = document.documentElement;
-    if (r.camera)      el.classList.add('fx-camera');
     if (r.frases)      el.classList.add('fx-frases');
     if (r.antesDepois) el.classList.add('fx-antes-depois');
+    /* Lembretes só pra você: abra o site com ?lembretes=1 no final do endereço. */
+    if (/[?&]lembretes=1\b/.test(location.search)) el.classList.add('mostrar-lembretes');
   })();
 
   var WA_NUMERO = CONFIG.whatsapp;
@@ -247,7 +252,8 @@
      Sem a foto par, a história continua como está. Só roda com o recurso ligado. */
   function criarComparador(story) {
     var media = story.querySelector('.story-media');
-    var foto = media && media.querySelector('img');
+    var foto = media && (media.querySelector('picture') || media.querySelector('img'));
+    var fotoImg = foto && (foto.tagName === 'IMG' ? foto : foto.querySelector('img'));
     var parSrc = story.getAttribute('data-depois') || story.getAttribute('data-antes');
     if (!foto || !parSrc || story.querySelector('[data-compare]')) return;
     var fotoEhAntes = story.hasAttribute('data-depois');
@@ -258,8 +264,8 @@
       box.setAttribute('data-compare', '');
       par.alt = story.getAttribute('data-par-alt') || '';
       par.className = fotoEhAntes ? 'compare-after' : 'compare-before';
-      foto.className = fotoEhAntes ? 'compare-before' : 'compare-after';
-      foto.removeAttribute('loading');
+      fotoImg.className = fotoEhAntes ? 'compare-before' : 'compare-after';
+      fotoImg.removeAttribute('loading');
       box.appendChild(par);
       box.appendChild(foto);
       box.insertAdjacentHTML('beforeend',
@@ -281,7 +287,9 @@
         criarComparador(e.target);
       });
     }, { rootMargin: '600px 0px' });
-    document.querySelectorAll('.story[data-depois], .story[data-antes]').forEach(function (st) { iop.observe(st); });
+    document.querySelectorAll('.story[data-par]').forEach(function (st) {
+      if ((CONFIG.pares || []).indexOf(st.getAttribute('data-par')) !== -1) iop.observe(st);
+    });
   }
 
   /* ---------- FAQ acordeão ---------- */
