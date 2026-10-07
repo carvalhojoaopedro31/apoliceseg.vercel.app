@@ -18,8 +18,24 @@
     /* Número de cada corretor (opcional). Vazio = usa o número principal.
        Quando preenchido, o botão "Falar com ..." da equipe abre a conversa
        direto com o corretor. Formato: '5515999998888'. */
-    corretores: { luciana: '', pedro: '' }
+    corretores: { luciana: '', pedro: '' },
+    /* Recursos visuais da página Sobre. Troque true por false pra desligar
+       qualquer um deles, sem apagar nada. */
+    recursos: {
+      camera:      true,  /* marca "REC" e efeito de câmera de segurança nas fotos */
+      frases:      true,  /* balão com a frase de quem achou que não ia precisar */
+      antesDepois: true   /* comparador "sem seguro" x "com seguro" */
+    }
   };
+
+  /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
+  (function () {
+    var r = CONFIG.recursos || {};
+    var el = document.documentElement;
+    if (r.camera)      el.classList.add('fx-camera');
+    if (r.frases)      el.classList.add('fx-frases');
+    if (r.antesDepois) el.classList.add('fx-antes-depois');
+  })();
 
   var WA_NUMERO = CONFIG.whatsapp;
 
@@ -183,6 +199,47 @@
     if (window.fbq) fbq('track', 'Lead', { content_name: produto });
 
     window.open('https://wa.me/' + WA_NUMERO + '?text=' + msg, '_blank', 'noopener');
+  });
+
+  /* ---------- Carro percorrendo a linha do rodapé ---------- */
+  var road = document.getElementById('footerRoad');
+  if (road) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { road.classList.add('is-driving'); io.disconnect(); }
+      }, { threshold: 0.6 });
+      io.observe(road);
+    } else {
+      road.classList.add('is-driving');
+    }
+  }
+
+  /* ---------- Comparador "sem seguro" x "com seguro" ---------- */
+  document.querySelectorAll('[data-compare]').forEach(function (box) {
+    var range = box.querySelector('.compare-range');
+    if (!range) return;
+    var tocou = false;
+    function pos(v) { box.style.setProperty('--pos', v + '%'); }
+    range.addEventListener('input', function () { tocou = true; pos(range.value); });
+
+    /* Uma varredura curta, só uma vez, pra mostrar que dá pra arrastar. */
+    var reduzir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduzir || !('IntersectionObserver' in window)) return;
+    var ioc = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      ioc.disconnect();
+      var t0 = null;
+      (function passo(t) {
+        if (tocou) return;
+        if (t0 === null) t0 = t;
+        var p = (t - t0) / 1800;
+        if (p >= 1) { range.value = 50; pos(50); return; }
+        var v = 50 + 28 * Math.sin(p * Math.PI * 2);
+        range.value = v; pos(v);
+        requestAnimationFrame(passo);
+      })(performance.now());
+    }, { threshold: 0.6 });
+    ioc.observe(box);
   });
 
   /* ---------- FAQ acordeão ---------- */
