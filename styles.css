@@ -440,3 +440,14 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .dna-card h3 { font-size: 22px; }
 .dna-card p { font-size: 16px; line-height: 1.6; color: var(--color-neutral-800); }
 @media (max-width: 1023px) { .dna-grid { grid-template-columns: 1fr; } }
+
+/* Cena larga (residencial): a foto começa mais à direita e o degradê é curto, pra o casal não sumir sob o texto. */
+.story--scene .story-media { width: 56%; }
+.story--scene .story-media img { object-position: left center; }
+.story--scene .story-media::after { background: linear-gradient(90deg, var(--color-white) 0%, rgb(255 255 255 / 0.85) 4%, rgb(255 255 255 / 0) 12%); }
+@media (max-width: 1023px) {
+  .story--scene .story-media { width: 100%; }
+  .story--scene .story-media img { object-position: 20% 85%; }
+  .story--scene .story-quote { bottom: auto; top: var(--space-4); }
+  .story--scene .story-media::after { background: linear-gradient(180deg, rgb(255 255 255 / 0) 35%, var(--color-white) 100%); }
+}
