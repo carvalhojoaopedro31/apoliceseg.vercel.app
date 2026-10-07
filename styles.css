@@ -396,6 +396,24 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .story-quote { display: none; position: absolute; right: var(--space-6); bottom: 44px; z-index: 2; max-width: 280px; margin: 0; padding: 12px 18px; flex-direction: column; gap: 2px; background: var(--color-white); color: var(--color-primary-900); font-size: 17px; font-weight: 700; line-height: 1.3; border-radius: 14px 14px 14px 2px; box-shadow: var(--shadow-md); }
 .story-quote-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600); }
 .fx-frases .story-quote { display: flex; }
+/* Recurso: comparador "sem seguro" x "com seguro" (liga/desliga em site.js > recursos.antesDepois) */
+.story--compare { display: none; }
+.fx-antes-depois .story--compare { display: flex; }
+.story--compare .story-media { top: var(--space-6); right: var(--space-6); bottom: var(--space-6); width: 54%; border-radius: var(--radius-lg); overflow: hidden; }
+.story--compare .story-media::after { display: none; }
+.story--compare .story-body { width: 44%; padding-right: var(--space-6); }
+.story--compare .story-credit { right: var(--space-3); }
+.compare { --pos: 50%; position: relative; width: 100%; height: 100%; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 3px; margin-left: -1.5px; background: var(--color-white); box-shadow: 0 0 0 1px rgb(15 33 62 / 0.12); pointer-events: none; }
+.compare-handle i { position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: var(--color-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 24 24' fill='none' stroke='%230848BD' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 7l-5 5 5 5M16 7l5 5-5 5'/%3E%3C/svg%3E") center / 26px no-repeat; box-shadow: var(--shadow-md); }
+.compare:focus-within .compare-handle i { outline: 3px solid var(--color-primary-400); outline-offset: 2px; }
+.compare-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; }
+.compare-tag { position: absolute; bottom: var(--space-4); z-index: 2; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; pointer-events: none; }
+.compare-tag--before { left: var(--space-4); background: var(--color-dark); color: var(--color-white); }
+.compare-tag--after { right: var(--space-4); background: var(--color-primary-600); color: var(--color-white); bottom: 40px; }
+.story--compare.no-photo, .fx-antes-depois .story--compare.no-photo { display: none; }
 .story.no-photo { min-height: 0; }
 .story.no-photo .story-media { display: none; }
 .story.no-photo .story-body { width: 100%; max-width: 760px; }
@@ -403,6 +421,10 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
   .story { flex-direction: column; align-items: stretch; min-height: 0; }
   .story-media { position: relative; width: 100%; height: 260px; order: -1; }
   .story-media::after { background: linear-gradient(180deg, rgb(255 255 255 / 0) 35%, var(--color-white) 100%); }
+  .story--compare .story-media { top: auto; right: auto; bottom: auto; width: auto; margin: var(--space-4) var(--space-4) 0; height: 260px; }
+  .fx-antes-depois .story--compare { flex-direction: column; }
+  .story--compare .story-body { width: 100%; margin-top: 0; padding-right: var(--space-6); }
+  .story--compare .story-credit { left: var(--space-3); top: var(--space-3); }
   .story-rec { right: auto; left: var(--space-4); top: var(--space-3); }
   .story-quote { right: var(--space-4); left: auto; bottom: 40px; max-width: 240px; font-size: 15px; }
   .story-credit { right: auto; left: var(--space-4); top: 48px; bottom: auto; }
