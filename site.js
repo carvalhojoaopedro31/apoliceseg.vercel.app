@@ -18,8 +18,24 @@
     /* Número de cada corretor (opcional). Vazio = usa o número principal.
        Quando preenchido, o botão "Falar com ..." da equipe abre a conversa
        direto com o corretor. Formato: '5515999998888'. */
-    corretores: { luciana: '', pedro: '' }
+    corretores: { luciana: '', pedro: '' },
+    /* Recursos visuais da página Sobre. Troque true por false pra desligar
+       qualquer um deles, sem apagar nada. */
+    recursos: {
+      camera:      true,  /* marca "REC" e efeito de câmera de segurança nas fotos */
+      frases:      true,  /* balão com a frase de quem achou que não ia precisar */
+      antesDepois: true   /* comparador "sem seguro" x "com seguro" */
+    }
   };
+
+  /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
+  (function () {
+    var r = CONFIG.recursos || {};
+    var el = document.documentElement;
+    if (r.camera)      el.classList.add('fx-camera');
+    if (r.frases)      el.classList.add('fx-frases');
+    if (r.antesDepois) el.classList.add('fx-antes-depois');
+  })();
 
   var WA_NUMERO = CONFIG.whatsapp;
 
