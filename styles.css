@@ -516,3 +516,12 @@ html:not(.mostrar-lembretes) .lembrete, html:not(.mostrar-lembretes) [data-lembr
 /* Página Sobre: abertura mais limpa */
 .page-hero { background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200); }
 .page-hero-inner { padding-block: var(--space-16) var(--space-10); }
+
+/* Aviso de cookies */
+.cookie-bar { position: fixed; left: var(--space-4); right: var(--space-4); bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); z-index: 150; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-5); background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.cookie-bar p { flex: 1 1 320px; font-size: var(--text-sm); line-height: 1.5; color: var(--color-neutral-800); }
+.cookie-actions { display: flex; gap: var(--space-3); flex: 0 0 auto; }
+.cookie-actions .btn { min-height: 44px; padding-inline: 18px; }
+@media (max-width: 479px) { .cookie-actions { width: 100%; } .cookie-actions .btn { flex: 1; } }
+.cookie-pref { display: inline; min-height: 44px; padding: 0; background: none; border: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cookie-pref:hover { color: var(--color-primary-300); }
