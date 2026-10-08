@@ -11,7 +11,7 @@
      ================================================================ */
   var CONFIG = {
     whatsapp:  '551532320077',
-    ga4:       'G-SHJ9MBK0TJ',
+    ga4:       '',  /* ID reservado: G-SHJ9MBK0TJ. Coloque aqui junto com o Meta Pixel, que o aviso de cookies liga sozinho. */
     metaPixel: '',
     susep:     '',
     cnpj:      '21.636.796/0001-43',
@@ -29,7 +29,7 @@
        Quando mandar a foto, suba o arquivo em img/sobre/ e acrescente o nome aqui.
        Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial'.
        Cada foto precisa ter as versões .jpg e .webp (-800 e -1600). */
-    pares: ['batida', 'residencial', 'empresarial']
+    pares: ['batida', 'residencial']
   };
 
   /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
