@@ -119,6 +119,11 @@
   function lerEscolha() { try { return localStorage.getItem(CHAVE_COOKIES); } catch (e) { return null; } }
   function salvarEscolha(v) { try { localStorage.setItem(CHAVE_COOKIES, v); } catch (e) {} }
 
+  /* Versão do aviso: muda quando entra um rastreamento novo (ex.: o Meta Pixel).
+     Assim, quem aceitou antes é perguntado de novo, porque o aceite vale só
+     para o que estava escrito no aviso daquele momento. */
+  var VERSAO_AVISO = (CONFIG.ga4 ? 'ga4' : '') + (CONFIG.metaPixel ? '+meta' : '');
+
   var rastreamentoLigado = false;
   function iniciarRastreamento() {
     if (rastreamentoLigado) return;
@@ -164,7 +169,7 @@
     barra.addEventListener('click', function (e) {
       var v = e.target.getAttribute && e.target.getAttribute('data-cookies');
       if (!v) return;
-      salvarEscolha(v);
+      salvarEscolha(v + ':' + VERSAO_AVISO);
       barra.remove();
       if (v === 'sim') iniciarRastreamento();
     });
@@ -172,8 +177,8 @@
 
   if (CONFIG.ga4 || CONFIG.metaPixel) {
     var escolha = lerEscolha();
-    if (escolha === 'sim') iniciarRastreamento();
-    else if (!escolha) mostrarAvisoCookies();
+    if (escolha === 'sim:' + VERSAO_AVISO) iniciarRastreamento();
+    else if (escolha !== 'nao:' + VERSAO_AVISO) mostrarAvisoCookies();
 
     /* Link no rodapé para rever a escolha */
     var copia = document.querySelector('.footer-copy');
