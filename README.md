@@ -23,5 +23,9 @@ Cada história pode virar comparador quando existir a foto par. Passos:
 2. Acrescente o nome (`'batida'`, `'roubo'`, `'alagamento'`, `'saude'`, `'residencial'`, `'empresarial'`, `'vida'`) em `CONFIG.pares`, no `site.js`.
 Enquanto o nome não estiver em `CONFIG.pares`, a história mostra só a foto atual.
 
+## Ao trocar uma foto, mude o nome do arquivo
+O navegador guarda as fotos de `img/` por 24 horas. Se uma foto for trocada mantendo o mesmo nome, quem já visitou o site continua vendo a antiga.
+Por isso, ao trocar uma foto, dê um nome novo (ex.: `saude-v3.jpg`) e atualize o `sobre.html`. As fotos atuais da página Sobre terminam em `-v2`.
+
 ## Antes de mexer em algo grande
 O branch `estado-seguro-07out` guarda a última versão aprovada antes do refino de produto. Para voltar, crie um PR dele para o `main`.
