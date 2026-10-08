@@ -412,6 +412,8 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 /* Enquadramento por foto: mantém o carro e o personagem à vista no recorte */
 .story[data-par="roubo"] .story-media img { object-position: 85% center; }
 .story[data-par="alagamento"] .story-media img { object-position: 100% center; }
+.story#vida .story-media img { object-position: 55% center; }
+.story#saude .story-media img { object-position: 25% center; }
 
 /* =====================================================================
    Refino de produto: componentes simples, menos cartões

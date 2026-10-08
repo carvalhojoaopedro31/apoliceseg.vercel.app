@@ -29,7 +29,7 @@
        Quando mandar a foto, suba o arquivo em img/sobre/ e acrescente o nome aqui.
        Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial'.
        Cada foto precisa ter as versões .jpg e .webp (-800 e -1600). */
-    pares: ['batida', 'residencial']
+    pares: ['batida', 'residencial', 'saude', 'empresarial']
   };
 
   /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
@@ -333,8 +333,8 @@
       box.appendChild(par);
       box.appendChild(foto);
       box.insertAdjacentHTML('beforeend',
-        '<span class="compare-tag compare-tag--before">Sem seguro</span>' +
-        '<span class="compare-tag compare-tag--after">Com seguro</span>' +
+        '<span class="compare-tag compare-tag--before">' + (story.getAttribute('data-rotulo-antes') || 'Sem seguro') + '</span>' +
+        '<span class="compare-tag compare-tag--after">' + (story.getAttribute('data-rotulo-depois') || 'Com seguro') + '</span>' +
         '<span class="compare-handle" aria-hidden="true"><i></i></span>' +
         '<input class="compare-range" type="range" min="0" max="100" value="50" aria-label="Arraste para comparar a situação sem seguro e com seguro">');
       media.insertBefore(box, media.firstChild);
