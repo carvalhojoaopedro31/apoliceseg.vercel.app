@@ -351,14 +351,17 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .chip-link { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 18px; font-size: var(--text-sm); font-weight: 600; color: var(--color-primary-900); text-decoration: none; background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-pill); transition: border-color .2s, color .2s; }
 .chip-link:hover { border-color: var(--color-primary-600); color: var(--color-primary-700); }
 
-/* Exemplos por proteção: texto à esquerda, foto à direita clareando até o texto */
+/* Exemplos por proteção: texto de um lado, foto do outro (alternando), sem degradê */
 .story-list { display: flex; flex-direction: column; gap: var(--space-8); }
-.story { position: relative; display: flex; align-items: center; min-height: 560px; overflow: hidden; background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); }
-.story-media { position: absolute; top: 0; right: 0; bottom: 0; width: 70%; background: var(--color-secondary-100); }
-.story-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.story-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-white) 0%, rgb(255 255 255 / 0.88) 16%, rgb(255 255 255 / 0.35) 45%, rgb(255 255 255 / 0) 75%); }
+.story { position: relative; --col-texto: 1fr; --col-foto: 1.1fr; display: grid; grid-template-columns: minmax(0, var(--col-texto)) minmax(0, var(--col-foto)); align-items: stretch; overflow: hidden; background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); }
+.story-media { position: relative; order: 2; min-height: 460px; background: var(--color-secondary-100); }
+.story:nth-child(even) { grid-template-columns: minmax(0, var(--col-foto)) minmax(0, var(--col-texto)); }
+.story:nth-child(even) .story-media { order: 1; }
+.story-media > img, .story-media > picture > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.story-media > .compare { position: absolute; inset: 0; height: auto; }
 .story-credit { position: absolute; right: var(--space-4); bottom: var(--space-3); z-index: 2; padding: 3px 10px; border-radius: var(--radius-pill); background: rgb(15 16 18 / 0.5); font-size: var(--text-xs); font-weight: 500; color: var(--color-white); }
-.story-body { position: relative; z-index: 1; width: min(100%, 580px); padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-5); }
+.story-body { position: relative; z-index: 1; order: 1; padding: var(--space-12); display: flex; flex-direction: column; justify-content: center; gap: var(--space-5); }
+.story:nth-child(even) .story-body { order: 2; }
 .story-body h2 { font-size: clamp(26px, 3vw, 32px); line-height: 1.15; }
 .story-text { font-size: var(--text-base); line-height: 1.7; color: var(--color-neutral-800); }
 .story-case { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-5); border-top: 1px solid var(--color-neutral-200); }
@@ -370,12 +373,10 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .story-quote { display: none; position: absolute; right: var(--space-6); bottom: 44px; z-index: 2; max-width: 280px; margin: 0; padding: 12px 18px; flex-direction: column; gap: 2px; background: var(--color-white); color: var(--color-primary-900); font-size: var(--text-lg); font-weight: 700; line-height: 1.3; border-radius: 14px 14px 14px 2px; box-shadow: var(--shadow-md); }
 .story-quote-label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600); }
 .fx-frases .story-quote { display: flex; }
+.story-media > .compare ~ .story-quote { bottom: auto; top: var(--space-4); right: var(--space-4); }
 /* Recurso: comparador "sem seguro" x "com seguro" (liga/desliga em site.js > recursos.antesDepois) */
 .story--compare { display: none; }
-.fx-antes-depois .story--compare { display: flex; }
-.story--compare .story-media { top: var(--space-6); right: var(--space-6); bottom: var(--space-6); width: 54%; border-radius: var(--radius-lg); overflow: hidden; }
-.story--compare .story-media::after { display: none; }
-.story--compare .story-body { width: 44%; padding-right: var(--space-6); }
+.fx-antes-depois .story--compare { display: grid; }
 .story--compare .story-credit { right: var(--space-3); }
 .compare { --pos: 50%; position: relative; width: 100%; height: 100%; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -388,20 +389,16 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .compare-tag--before { left: var(--space-4); background: var(--color-dark); color: var(--color-white); }
 .compare-tag--after { right: var(--space-4); background: var(--color-primary-600); color: var(--color-white); bottom: 40px; }
 .story--compare.no-photo, .fx-antes-depois .story--compare.no-photo { display: none; }
-.story.no-photo { min-height: 0; }
+.story.no-photo { display: block; }
 .story.no-photo .story-media { display: none; }
-.story.no-photo .story-body { width: 100%; max-width: 760px; }
+.story.no-photo .story-body { max-width: 760px; }
 @media (max-width: 1023px) {
-  .story { flex-direction: column; align-items: stretch; min-height: 0; }
-  .story-media { position: relative; width: 100%; height: 260px; order: -1; }
-  .story-media::after { background: linear-gradient(180deg, rgb(255 255 255 / 0) 35%, var(--color-white) 100%); }
-  .story--compare .story-media { top: auto; right: auto; bottom: auto; width: auto; margin: var(--space-4) var(--space-4) 0; height: 260px; }
-  .fx-antes-depois .story--compare { flex-direction: column; }
-  .story--compare .story-body { width: 100%; margin-top: 0; padding-right: var(--space-6); }
-  .story--compare .story-credit { left: var(--space-3); top: var(--space-3); }
+  .story, .fx-antes-depois .story--compare { display: flex; flex-direction: column; }
+  .story-media, .story:nth-child(even) .story-media { order: -1; min-height: 0; height: 260px; }
+  .story-body, .story:nth-child(even) .story-body { order: 0; padding: var(--space-6); }
   .story-quote { right: var(--space-4); left: auto; bottom: 40px; max-width: 240px; font-size: var(--text-base); }
-  .story-credit { right: auto; left: var(--space-4); top: 48px; bottom: auto; }
-  .story-body { width: 100%; padding: var(--space-6); margin-top: calc(var(--space-6) * -1); }
+  .story-media > .compare ~ .story-quote { bottom: auto; top: var(--space-4); }
+  .story-credit { right: auto; left: var(--space-4); top: var(--space-4); bottom: auto; }
 }
 @media (max-width: 639px) { .story-actions .btn { width: 100%; } }
 
@@ -412,16 +409,9 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .dna-card p { font-size: var(--text-base); line-height: 1.6; color: var(--color-neutral-800); }
 @media (max-width: 1023px) { .dna-grid { grid-template-columns: 1fr; } }
 
-/* Cena larga (residencial): a foto começa mais à direita e o degradê é curto, pra o casal não sumir sob o texto. */
-.story--scene .story-media { width: 56%; }
-.story--scene .story-media img { object-position: left center; }
-.story--scene .story-media::after { background: linear-gradient(90deg, var(--color-white) 0%, rgb(255 255 255 / 0.85) 4%, rgb(255 255 255 / 0) 12%); }
-@media (max-width: 1023px) {
-  .story--scene .story-media { width: 100%; }
-  .story--scene .story-media img { object-position: 20% 85%; }
-  .story--scene .story-quote { bottom: auto; top: var(--space-4); }
-  .story--scene .story-media::after { background: linear-gradient(180deg, rgb(255 255 255 / 0) 35%, var(--color-white) 100%); }
-}
+/* Enquadramento por foto: mantém o carro e o personagem à vista no recorte */
+.story[data-par="roubo"] .story-media img { object-position: 85% center; }
+.story[data-par="alagamento"] .story-media img { object-position: 100% center; }
 
 /* =====================================================================
    Refino de produto: componentes simples, menos cartões
@@ -516,3 +506,12 @@ html:not(.mostrar-lembretes) .lembrete, html:not(.mostrar-lembretes) [data-lembr
 /* Página Sobre: abertura mais limpa */
 .page-hero { background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-200); }
 .page-hero-inner { padding-block: var(--space-16) var(--space-10); }
+
+/* Aviso de cookies */
+.cookie-bar { position: fixed; left: var(--space-4); right: var(--space-4); bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); z-index: 150; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-5); background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.cookie-bar p { flex: 1 1 320px; font-size: var(--text-sm); line-height: 1.5; color: var(--color-neutral-800); }
+.cookie-actions { display: flex; gap: var(--space-3); flex: 0 0 auto; }
+.cookie-actions .btn { min-height: 44px; padding-inline: 18px; }
+@media (max-width: 479px) { .cookie-actions { width: 100%; } .cookie-actions .btn { flex: 1; } }
+.cookie-pref { display: inline; min-height: 44px; padding: 0; background: none; border: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cookie-pref:hover { color: var(--color-primary-300); }

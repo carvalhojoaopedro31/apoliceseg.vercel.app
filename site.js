@@ -11,7 +11,7 @@
      ================================================================ */
   var CONFIG = {
     whatsapp:  '551532320077',
-    ga4:       '',
+    ga4:       '',  /* ID reservado: G-SHJ9MBK0TJ. Coloque aqui junto com o Meta Pixel, que o aviso de cookies liga sozinho. */
     metaPixel: '',
     susep:     '',
     cnpj:      '21.636.796/0001-43',
@@ -29,7 +29,7 @@
        Quando mandar a foto, suba o arquivo em img/sobre/ e acrescente o nome aqui.
        Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial'.
        Cada foto precisa ter as versões .jpg e .webp (-800 e -1600). */
-    pares: []
+    pares: ['batida', 'residencial']
   };
 
   /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
@@ -113,23 +113,87 @@
     document.head.appendChild(sc);
   }
 
-  if (CONFIG.ga4) {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { dataLayer.push(arguments); };
-    gtag('js', new Date());
-    gtag('config', CONFIG.ga4);
-    carregarScript('https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4);
+  /* O rastreamento só liga depois que o visitante aceita o aviso de cookies (LGPD).
+     A escolha fica salva neste navegador. */
+  var CHAVE_COOKIES = 'apoliceseg-cookies';
+  function lerEscolha() { try { return localStorage.getItem(CHAVE_COOKIES); } catch (e) { return null; } }
+  function salvarEscolha(v) { try { localStorage.setItem(CHAVE_COOKIES, v); } catch (e) {} }
+
+  /* Versão do aviso: muda quando entra um rastreamento novo (ex.: o Meta Pixel).
+     Assim, quem aceitou antes é perguntado de novo, porque o aceite vale só
+     para o que estava escrito no aviso daquele momento. */
+  var VERSAO_AVISO = (CONFIG.ga4 ? 'ga4' : '') + (CONFIG.metaPixel ? '+meta' : '');
+
+  var rastreamentoLigado = false;
+  function iniciarRastreamento() {
+    if (rastreamentoLigado) return;
+    rastreamentoLigado = true;
+
+    if (CONFIG.ga4) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', CONFIG.ga4);
+      carregarScript('https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4);
+    }
+
+    if (CONFIG.metaPixel) {
+      var f = window.fbq = function () {
+        f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments);
+      };
+      if (!window._fbq) window._fbq = f;
+      f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
+      fbq('init', CONFIG.metaPixel);
+      fbq('track', 'PageView');
+      carregarScript('https://connect.facebook.net/en_US/fbevents.js');
+    }
   }
 
-  if (CONFIG.metaPixel) {
-    var f = window.fbq = function () {
-      f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments);
-    };
-    if (!window._fbq) window._fbq = f;
-    f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
-    fbq('init', CONFIG.metaPixel);
-    fbq('track', 'PageView');
-    carregarScript('https://connect.facebook.net/en_US/fbevents.js');
+  /* Aviso de cookies: só aparece se houver algum rastreamento configurado. */
+  function mostrarAvisoCookies() {
+    if (document.getElementById('avisoCookies')) return;
+    var barra = document.createElement('div');
+    barra.id = 'avisoCookies';
+    barra.className = 'cookie-bar';
+    barra.setAttribute('role', 'dialog');
+    barra.setAttribute('aria-label', 'Aviso de cookies');
+    barra.innerHTML =
+      '<p>Usamos cookies do Google Analytics' + (CONFIG.metaPixel ? ' e do Meta' : '') +
+      ' para entender como o site é usado e melhorar nosso atendimento e nossos anúncios. ' +
+      'Você pode aceitar ou recusar, e muda de ideia quando quiser pelo rodapé.</p>' +
+      '<div class="cookie-actions">' +
+      '<button type="button" class="btn btn-secondary" data-cookies="nao">Recusar</button>' +
+      '<button type="button" class="btn btn-primary" data-cookies="sim">Aceitar</button>' +
+      '</div>';
+    document.body.appendChild(barra);
+    barra.addEventListener('click', function (e) {
+      var v = e.target.getAttribute && e.target.getAttribute('data-cookies');
+      if (!v) return;
+      salvarEscolha(v + ':' + VERSAO_AVISO);
+      barra.remove();
+      if (v === 'sim') iniciarRastreamento();
+    });
+  }
+
+  if (CONFIG.ga4 || CONFIG.metaPixel) {
+    var escolha = lerEscolha();
+    if (escolha === 'sim:' + VERSAO_AVISO) iniciarRastreamento();
+    else if (escolha !== 'nao:' + VERSAO_AVISO) mostrarAvisoCookies();
+
+    /* Link no rodapé para rever a escolha */
+    var copia = document.querySelector('.footer-copy');
+    if (copia) {
+      var pref = document.createElement('button');
+      pref.type = 'button';
+      pref.className = 'cookie-pref';
+      pref.textContent = 'Preferências de cookies';
+      pref.addEventListener('click', function () {
+        try { localStorage.removeItem(CHAVE_COOKIES); } catch (e) {}
+        mostrarAvisoCookies();
+      });
+      copia.appendChild(document.createTextNode(' · '));
+      copia.appendChild(pref);
+    }
   }
 
   function registrar(evento, dados) {
