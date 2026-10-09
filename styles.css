@@ -363,6 +363,10 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .story-body { position: relative; z-index: 1; order: 1; padding: var(--space-12); display: flex; flex-direction: column; justify-content: center; gap: var(--space-5); }
 .story:nth-child(even) .story-body { order: 2; }
 .story-body h2 { font-size: clamp(26px, 3vw, 32px); line-height: 1.15; }
+.story-sub { font-size: var(--text-lg); font-weight: 600; line-height: 1.35; color: var(--color-primary-700); margin-top: calc(var(--space-2) * -1); }
+.story-examples { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.story-examples li { position: relative; padding-left: 26px; font-size: var(--text-base); line-height: 1.5; color: var(--color-neutral-800); }
+.story-examples li::before { content: ""; position: absolute; left: 0; top: .35em; width: 16px; height: 16px; border-radius: 50%; background: var(--color-primary-600) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 11px no-repeat; }
 .story-text { font-size: var(--text-base); line-height: 1.7; color: var(--color-neutral-800); }
 .story-case { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-5); border-top: 1px solid var(--color-neutral-200); }
 .story-case h3 { font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary-700); }
