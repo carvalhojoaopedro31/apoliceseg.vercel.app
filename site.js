@@ -70,6 +70,10 @@
   var legal = [];
   if (CONFIG.susep) legal.push('SUSEP nº ' + CONFIG.susep);
   if (CONFIG.cnpj)  legal.push('CNPJ ' + CONFIG.cnpj);
+  if (CONFIG.susep) {
+    var faqSusep = document.getElementById('faqSusep'), faqNum = document.getElementById('faqSusepNum');
+    if (faqSusep && faqNum) { faqNum.textContent = CONFIG.susep; faqSusep.hidden = false; }
+  }
   if (legal.length) {
     var legalEl = document.getElementById('legalInfo');
     if (legalEl) {
