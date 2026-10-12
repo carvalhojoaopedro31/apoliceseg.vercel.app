@@ -204,17 +204,8 @@
     if (window.gtag) gtag('event', evento, dados || {});
   }
 
-  /* Cliques em WhatsApp e telefone = lead (intenção de contato) */
-  document.querySelectorAll('a[href*="wa.me/"]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var local = a.classList.contains('wa-float') ? 'botao_flutuante'
-                : a.classList.contains('team-wa') ? 'equipe'
-                : a.hasAttribute('data-produto') ? 'saiba_mais_' + a.getAttribute('data-produto')
-                : a.closest('footer') ? 'rodape' : 'cta';
-      registrar('clique_whatsapp', { local: local });
-      if (window.fbq) fbq('track', 'Contact', { content_name: local });
-    });
-  });
+  /* Cliques em telefone = lead (intenção de contato).
+     Os cliques de WhatsApp são medidos no fluxo de cotação, mais abaixo. */
   document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
     a.addEventListener('click', function () {
       registrar('clique_telefone');
@@ -250,29 +241,317 @@
     });
   }
 
-  /* ---------- Simulador → WhatsApp ---------- */
-  var simForm = document.getElementById('simForm');
-  if (simForm) simForm.addEventListener('submit', function (e) {
+  /* ---------- Cotação em 3 passos → WhatsApp ----------
+     Todo botão de WhatsApp do site (e os "Fazer cotação") abre este fluxo:
+       1. quais seguros cotar (um ou mais);
+       2. nome, e-mail e, só quando a cotação precisa, data de nascimento;
+       3. informações de cada seguro escolhido + observações.
+     No fim, abre o WhatsApp da corretora com a mensagem organizada;
+     o cliente só toca em enviar. O telefone não é pedido: chega junto
+     com a mensagem. Nada é guardado no site.
+     Links com data-direto continuam abrindo o WhatsApp sem o fluxo. */
+  var SEGUROS = {
+    automovel: { nome: 'Automóvel', nasc: true, campos: [
+      { id: 'veiculo', rotulo: 'Modelo e ano do carro', ex: 'Ex.: Onix 2021' },
+      { id: 'cep', rotulo: 'CEP onde o carro dorme', ex: 'Ex.: 18035-000', num: true },
+      { id: 'seguro', rotulo: 'Já tem seguro hoje?', opcoes: ['Sim, quero renovar ou trocar', 'Não, seria o primeiro'] }
+    ] },
+    saude: { nome: 'Plano de Saúde', nasc: true, campos: [
+      { id: 'para', rotulo: 'Para quem é o plano?', opcoes: ['Só para mim', 'Para mim e minha família', 'Para minha empresa (CNPJ)'] },
+      { id: 'vidas', rotulo: 'Quantas pessoas e as idades', ex: 'Ex.: 3 pessoas: 38, 35 e 6 anos' },
+      { id: 'cidade', rotulo: 'Cidade', ex: 'Ex.: Sorocaba' }
+    ] },
+    vida: { nome: 'Vida', nasc: true, campos: [
+      { id: 'profissao', rotulo: 'Profissão', ex: 'Ex.: Engenheira' },
+      { id: 'valor', rotulo: 'Valor de cobertura que imagina (se tiver ideia)', ex: 'Ex.: R$ 300 mil' }
+    ] },
+    residencial: { nome: 'Residencial', campos: [
+      { id: 'cep', rotulo: 'CEP do imóvel', ex: 'Ex.: 18035-000', num: true },
+      { id: 'tipo', rotulo: 'Tipo de imóvel', opcoes: ['Casa', 'Casa em condomínio', 'Apartamento'] },
+      { id: 'posse', rotulo: 'O imóvel é', opcoes: ['Próprio', 'Alugado'] }
+    ] },
+    empresarial: { nome: 'Empresarial', campos: [
+      { id: 'ramo', rotulo: 'Ramo da empresa', ex: 'Ex.: Padaria, escritório, indústria' },
+      { id: 'cep', rotulo: 'CEP da empresa', ex: 'Ex.: 18035-000', num: true }
+    ] },
+    frotas: { nome: 'Frotas', campos: [
+      { id: 'qtd', rotulo: 'Quantos veículos e de que tipo', ex: 'Ex.: 6 carros e 2 caminhões' },
+      { id: 'cidade', rotulo: 'Cidade onde ficam', ex: 'Ex.: Sorocaba' }
+    ] },
+    outro: { nome: 'Outro / ainda não sei', campos: [] }
+  };
+  /* Botões "saiba mais" da página Sobre → seguro já marcado no passo 1 */
+  var PRODUTO_PARA_SEGURO = {
+    automovel: 'automovel', assistencia: 'automovel', 'automovel-roubo': 'automovel',
+    'automovel-alagamento': 'automovel', saude: 'saude', vida: 'vida',
+    residencial: 'residencial', empresarial: 'empresarial'
+  };
+  var NOME_CORRETOR = { luciana: 'Luciana', pedro: 'Pedro' };
+
+  function esc(t) {
+    return String(t).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function montarCotacao() {
+    var dlg = document.createElement('dialog');
+    dlg.className = 'cot';
+    dlg.setAttribute('aria-labelledby', 'cotTitulo');
+    var chips = Object.keys(SEGUROS).map(function (k) {
+      return '<label class="cot-chip"><input type="checkbox" name="seguro" value="' + k + '"><span>' + esc(SEGUROS[k].nome) + '</span></label>';
+    }).join('');
+    dlg.innerHTML =
+      '<form class="cot-box" novalidate>' +
+        '<div class="cot-top">' +
+          '<p class="cot-passo" id="cotPasso">Passo 1 de 3</p>' +
+          '<button type="button" class="cot-x" data-cot="fechar" aria-label="Fechar">×</button>' +
+        '</div>' +
+        '<div class="cot-barra" aria-hidden="true"><i id="cotBarra"></i></div>' +
+
+        '<section class="cot-tela" data-tela="1">' +
+          '<h2 id="cotTitulo">Qual seguro você quer cotar?</h2>' +
+          '<p class="cot-sub">Pode marcar mais de um.</p>' +
+          '<div class="cot-chips">' + chips + '</div>' +
+          '<p class="cot-erro" data-erro="1" hidden>Marque pelo menos um seguro.</p>' +
+          '<p class="cot-direto">Já é cliente ou precisa de ajuda agora (batida, roubo, guincho)? ' +
+            '<a href="https://wa.me/' + WA_NUMERO + '" target="_blank" rel="noopener" data-direto>Fale direto no WhatsApp</a></p>' +
+        '</section>' +
+
+        '<section class="cot-tela" data-tela="2" hidden>' +
+          '<h2>Seus dados</h2>' +
+          '<p class="cot-sub">Seu telefone já chega junto com a mensagem do WhatsApp.</p>' +
+          '<div class="form-field"><label for="cotNome">Nome completo</label>' +
+            '<input id="cotNome" class="input" autocomplete="name" required placeholder="Ex.: Maria Silva"></div>' +
+          '<div class="form-field" id="cotNascBox"><label for="cotNasc">Data de nascimento</label>' +
+            '<input id="cotNasc" class="input" inputmode="numeric" autocomplete="bday" placeholder="dd/mm/aaaa" maxlength="10">' +
+            '<small class="cot-dica">A idade muda o preço do seguro, por isso a seguradora pede.</small></div>' +
+          '<div class="form-field"><label for="cotEmail">E-mail <span class="cot-opc">(opcional)</span></label>' +
+            '<input id="cotEmail" class="input" type="email" autocomplete="email" placeholder="Para receber a proposta em PDF"></div>' +
+          '<p class="cot-erro" data-erro="2" hidden></p>' +
+        '</section>' +
+
+        '<section class="cot-tela" data-tela="3" hidden>' +
+          '<h2>Para cotar mais rápido</h2>' +
+          '<p class="cot-sub">Tudo opcional. O que não souber, o corretor pergunta depois.</p>' +
+          '<div id="cotCampos"></div>' +
+          '<div class="form-field"><label for="cotObs">Observações</label>' +
+            '<textarea id="cotObs" class="input" rows="3" placeholder="Algo que o corretor deva saber? Ex.: melhor horário para falar"></textarea></div>' +
+        '</section>' +
+
+        '<section class="cot-tela cot-fim" data-tela="4" hidden>' +
+          '<h2>Sua mensagem está pronta no WhatsApp</h2>' +
+          '<p class="cot-sub">Confira e toque em <strong>enviar</strong>. Um corretor responde em seguida.</p>' +
+          '<a class="btn btn-secondary" id="cotDeNovo" href="#" target="_blank" rel="noopener" data-direto>O WhatsApp não abriu? Toque aqui</a>' +
+        '</section>' +
+
+        '<div class="cot-acoes">' +
+          '<button type="button" class="btn btn-secondary" data-cot="voltar">Voltar</button>' +
+          '<button type="submit" class="btn btn-primary" id="cotAvancar">Continuar</button>' +
+        '</div>' +
+      '</form>';
+    document.body.appendChild(dlg);
+    return dlg;
+  }
+
+  var cot = null, cotPasso = 1, cotLocal = 'cta', cotCorretor = '';
+
+  function marcados() {
+    return Array.prototype.map.call(cot.querySelectorAll('input[name="seguro"]:checked'), function (i) { return i.value; });
+  }
+  function precisaNasc() {
+    return marcados().some(function (k) { return SEGUROS[k].nasc; });
+  }
+
+  function camposPasso3() {
+    var html = '';
+    marcados().forEach(function (k) {
+      var s = SEGUROS[k];
+      if (!s.campos.length) return;
+      html += '<fieldset class="cot-grupo"><legend>' + esc(s.nome) + '</legend>';
+      s.campos.forEach(function (c) {
+        var id = 'cot_' + k + '_' + c.id;
+        var antigo = document.getElementById(id);
+        var valor = antigo ? antigo.value : '';
+        html += '<div class="form-field"><label for="' + id + '">' + esc(c.rotulo) + '</label>';
+        if (c.opcoes) {
+          html += '<select id="' + id + '" class="input" data-rotulo="' + esc(c.rotulo) + '"><option value="">Selecione...</option>' +
+            c.opcoes.map(function (o) { return '<option' + (o === valor ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+        } else {
+          html += '<input id="' + id + '" class="input" data-rotulo="' + esc(c.rotulo) + '" placeholder="' + esc(c.ex || '') + '"' +
+            (c.num ? ' inputmode="numeric"' : '') + ' value="' + esc(valor) + '">';
+        }
+        html += '</div>';
+      });
+      html += '</fieldset>';
+    });
+    document.getElementById('cotCampos').innerHTML = html;
+  }
+
+  function irPara(n) {
+    cotPasso = n;
+    cot.querySelectorAll('.cot-tela').forEach(function (t) { t.hidden = +t.getAttribute('data-tela') !== n; });
+    cot.querySelectorAll('.cot-erro').forEach(function (e) { e.hidden = true; });
+    document.getElementById('cotPasso').textContent = n < 4 ? 'Passo ' + n + ' de 3' : 'Pronto';
+    document.getElementById('cotBarra').style.width = (Math.min(n, 3) / 3 * 100) + '%';
+    cot.querySelector('[data-cot="voltar"]').hidden = n === 1 || n === 4;
+    cot.querySelector('.cot-acoes').hidden = n === 4;
+    var avancar = document.getElementById('cotAvancar');
+    avancar.innerHTML = n === 3
+      ? '<svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Enviar pelo WhatsApp'
+      : 'Continuar';
+    avancar.classList.toggle('btn-wa', n === 3);
+    if (n === 2) document.getElementById('cotNascBox').hidden = !precisaNasc();
+    if (n === 3) camposPasso3();
+    var tela = cot.querySelector('[data-tela="' + n + '"]');
+    var foco = tela.querySelector('input:not([type=checkbox]), select, textarea') || tela.querySelector('h2');
+    if (n > 1 && foco) { if (foco.tagName === 'H2') foco.tabIndex = -1; foco.focus(); }
+    cot.querySelector('.cot-box').scrollTop = 0;
+    registrar('cotacao_passo', { passo: n, local: cotLocal });
+  }
+
+  function erro(n, texto) {
+    var e = cot.querySelector('[data-erro="' + n + '"]');
+    if (texto) e.textContent = texto;
+    e.hidden = false;
+  }
+
+  function nascValida(v) {
+    var m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);
+    if (!m) return false;
+    var d = new Date(+m[3], +m[2] - 1, +m[1]);
+    var idade = (Date.now() - d) / 31557600000;
+    return d.getDate() === +m[1] && d.getMonth() === +m[2] - 1 && idade >= 16 && idade < 110;
+  }
+
+  function mensagem() {
+    var linhas = ['Olá! Quero uma cotação pelo site da Apólice Seg.'];
+    if (cotCorretor) linhas.push('Gostaria de ser atendido(a) por ' + cotCorretor + '.');
+    linhas.push('', '*Seguros:* ' + marcados().map(function (k) { return SEGUROS[k].nome; }).join(', '));
+    linhas.push('*Nome:* ' + document.getElementById('cotNome').value.trim());
+    if (precisaNasc()) linhas.push('*Nascimento:* ' + document.getElementById('cotNasc').value.trim());
+    var email = document.getElementById('cotEmail').value.trim();
+    if (email) linhas.push('*E-mail:* ' + email);
+    marcados().forEach(function (k) {
+      var itens = [];
+      SEGUROS[k].campos.forEach(function (c) {
+        var el = document.getElementById('cot_' + k + '_' + c.id);
+        if (el && el.value.trim()) itens.push('• ' + c.rotulo.replace(/ \(.*\)$|\?$/, '') + ': ' + el.value.trim());
+      });
+      if (itens.length) {
+        linhas.push('', '*' + SEGUROS[k].nome + '*');
+        Array.prototype.push.apply(linhas, itens);
+      }
+    });
+    var obs = document.getElementById('cotObs').value.trim();
+    if (obs) linhas.push('', '*Observações:* ' + obs);
+    return comOrigem(linhas.join('\n'));
+  }
+
+  function abrirLink(url) {
+    var a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.setAttribute('data-direto', '');
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  function enviar() {
+    var numero = WA_NUMERO;
+    var alvo = cotCorretor && (CONFIG.corretores || {})[cotCorretor.toLowerCase()];
+    if (alvo) numero = alvo.replace(/\D/g, '');
+    var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(mensagem());
+    var produtos = marcados().join(',');
+    registrar('generate_lead', { produto: produtos, local: cotLocal });
+    if (window.fbq) fbq('track', 'Lead', { content_name: produtos });
+    document.getElementById('cotDeNovo').href = url;
+    abrirLink(url);
+    irPara(4);
+  }
+
+  function avancar() {
+    if (cotPasso === 1) {
+      if (!marcados().length) return erro(1);
+      return irPara(2);
+    }
+    if (cotPasso === 2) {
+      var nome = document.getElementById('cotNome');
+      if (nome.value.trim().length < 2) { nome.focus(); return erro(2, 'Escreva seu nome.'); }
+      var nasc = document.getElementById('cotNasc');
+      if (precisaNasc() && !nascValida(nasc.value.trim())) { nasc.focus(); return erro(2, 'Confira a data de nascimento (dd/mm/aaaa).'); }
+      var email = document.getElementById('cotEmail');
+      if (email.value.trim() && !/^\S+@\S+\.\S+$/.test(email.value.trim())) { email.focus(); return erro(2, 'Confira o e-mail ou deixe em branco.'); }
+      return irPara(3);
+    }
+    if (cotPasso === 3) enviar();
+  }
+
+  function abrirCotacao(seguro, local, corretor) {
+    if (!cot) {
+      cot = montarCotacao();
+      var form = cot.querySelector('form');
+      form.addEventListener('submit', function (e) { e.preventDefault(); avancar(); });
+      cot.addEventListener('click', function (e) {
+        var acao = e.target.closest && e.target.closest('[data-cot]');
+        if (e.target === cot || (acao && acao.getAttribute('data-cot') === 'fechar')) cot.close();
+        else if (acao && acao.getAttribute('data-cot') === 'voltar') irPara(cotPasso - 1);
+      });
+      cot.addEventListener('change', function (e) {
+        if (e.target.name === 'seguro') cot.querySelector('[data-erro="1"]').hidden = true;
+      });
+      /* Data com barras automáticas: 12031985 → 12/03/1985 */
+      document.getElementById('cotNasc').addEventListener('input', function (e) {
+        var d = e.target.value.replace(/\D/g, '').slice(0, 8);
+        e.target.value = d.length > 4 ? d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4)
+                       : d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2) : d;
+      });
+      cot.addEventListener('close', function () {
+        document.documentElement.classList.remove('cot-aberta');
+        if (cotPasso === 4) { form.reset(); }
+      });
+    }
+    cotLocal = local || 'cta';
+    cotCorretor = corretor || '';
+    if (cotPasso === 4) cotPasso = 1;
+    if (seguro) {
+      var box = cot.querySelector('input[name="seguro"][value="' + seguro + '"]');
+      if (box) box.checked = true;
+    }
+    if (typeof cot.showModal === 'function') cot.showModal(); else cot.setAttribute('open', '');
+    document.documentElement.classList.add('cot-aberta');
+    irPara(cotPasso);
+    registrar('cotacao_aberta', { local: cotLocal });
+    if (window.fbq) fbq('track', 'Contact', { content_name: cotLocal });
+  }
+
+  function localDoClique(el) {
+    return el.classList.contains('wa-float') ? 'botao_flutuante'
+         : el.classList.contains('team-wa') ? 'equipe'
+         : el.hasAttribute('data-produto') ? 'saiba_mais_' + el.getAttribute('data-produto')
+         : el.hasAttribute('data-cotar') ? 'cartao_' + el.getAttribute('data-cotar')
+         : el.closest('header') ? 'topo'
+         : el.closest('.hero') ? 'hero'
+         : el.closest('footer') ? 'rodape' : 'cta';
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest && e.target.closest('a[href*="wa.me/"], a[href$="#simulador"], [data-cotar]');
+    if (!el) return;
+    /* Links diretos (data-direto) abrem o WhatsApp sem o fluxo; só são medidos. */
+    if (el.hasAttribute('data-direto')) {
+      if (!el.closest('.cot-fim')) {
+        registrar('clique_whatsapp', { local: 'direto' });
+        if (window.fbq) fbq('track', 'Contact', { content_name: 'direto' });
+      }
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
     e.preventDefault();
-
-    var produto = document.getElementById('simProduto').value;
-    var nome    = document.getElementById('simNome').value.trim();
-    var cidade  = document.getElementById('simCidade').value.trim();
-    if (!produto || !nome || !cidade) return;
-
-    var msg = encodeURIComponent(comOrigem(
-      'Olá! Vim pelo site da Apólice Seg.\n\n' +
-      'Interesse: ' + produto + '\n' +
-      'Nome: ' + nome + '\n' +
-      'Cidade: ' + cidade + '\n\n' +
-      'Gostaria de receber uma cotação.'
-    ));
-
-    registrar('generate_lead', { produto: produto, local: 'simulador' });
-    if (window.fbq) fbq('track', 'Lead', { content_name: produto });
-
-    window.open('https://wa.me/' + WA_NUMERO + '?text=' + msg, '_blank', 'noopener');
+    var seguro = el.getAttribute('data-cotar') || PRODUTO_PARA_SEGURO[el.getAttribute('data-produto')] || '';
+    abrirCotacao(seguro, localDoClique(el), NOME_CORRETOR[el.getAttribute('data-corretor')] || '');
   });
+
+  /* Quem chega com #cotacao no endereço (ex.: link na bio do Instagram) já vê o fluxo aberto. */
+  if (location.hash === '#cotacao') abrirCotacao('', 'link_direto');
 
   /* ---------- Carro percorrendo a linha do rodapé ---------- */
   var road = document.getElementById('footerRoad');
