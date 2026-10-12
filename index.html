@@ -114,9 +114,8 @@
       <h1>Proteção sob medida, <em>sem burocracia</em></h1>
       <p class="hero-sub">A gente cota nas melhores seguradoras do Brasil e te apresenta a opção que faz sentido pro seu bolso e pro seu momento.</p>
       <div class="hero-actions">
-        <a class="btn btn-accent" href="#simulador">Receber minha cotação <svg class="icon icon-sm"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-secondary" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener">
-          <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar no WhatsApp
+        <a class="btn btn-accent" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Quero%20cotar%20meu%20seguro%20com%20a%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener">
+          <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Fale com um corretor pelo WhatsApp
         </a>
       </div>
       <div class="hero-stats">
@@ -132,34 +131,19 @@
 <div class="container quote-wrap">
   <div class="quote-card" id="simulador">
     <div class="quote-head">
-      <h2>Simulação rápida</h2>
-      <p>Receba sua cotação pelo WhatsApp em minutos.</p>
+      <h2>Qual seguro você quer cotar?</h2>
+      <p>Pode escolher mais de um. A cotação chega pelo WhatsApp.</p>
     </div>
-    <form id="simForm" class="quote-form" novalidate>
-      <div class="form-field">
-        <label for="simProduto">Tipo de seguro</label>
-        <select id="simProduto" class="input" required>
-          <option value="">Selecione...</option>
-          <option value="Automóvel">Seguro de Automóvel</option>
-          <option value="Saúde Empresarial">Plano de Saúde Empresarial</option>
-          <option value="Saúde Individual">Plano de Saúde Individual</option>
-          <option value="Residencial">Seguro Residencial</option>
-          <option value="Vida">Seguro de Vida</option>
-          <option value="Empresarial">Seguro Empresarial</option>
-          <option value="Frotas">Seguro de Frotas</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label for="simNome">Seu nome</label>
-        <input type="text" id="simNome" class="input" placeholder="Ex: Maria Silva" autocomplete="name" required>
-      </div>
-      <div class="form-field">
-        <label for="simCidade">Cidade</label>
-        <input type="text" id="simCidade" class="input" placeholder="Ex: Sorocaba" autocomplete="address-level2" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Receber cotação <svg class="icon icon-sm"><use href="#i-arrow"/></svg></button>
-    </form>
-    <p class="quote-legal"><svg class="icon icon-sm"><use href="#i-check"/></svg>Abre uma conversa no WhatsApp com seus dados já preenchidos. Sem compromisso.</p>
+    <div class="quote-pick" role="group" aria-label="Escolha o seguro para cotar">
+      <button type="button" class="quote-chip" data-cotar="automovel">Automóvel</button>
+      <button type="button" class="quote-chip" data-cotar="saude">Plano de Saúde</button>
+      <button type="button" class="quote-chip" data-cotar="vida">Vida</button>
+      <button type="button" class="quote-chip" data-cotar="residencial">Residencial</button>
+      <button type="button" class="quote-chip" data-cotar="empresarial">Empresarial</button>
+      <button type="button" class="quote-chip" data-cotar="frotas">Frotas</button>
+      <a class="btn btn-primary quote-go" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Quero%20cotar%20meu%20seguro%20com%20a%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Fale com um corretor pelo WhatsApp</a>
+    </div>
+    <p class="quote-legal"><svg class="icon icon-sm"><use href="#i-check"/></svg>Três passos rápidos e a mensagem chega pronta no WhatsApp do corretor. Sem compromisso.</p>
   </div>
 </div>
 
@@ -348,7 +332,7 @@
         <h2>Pronto pra proteger o que importa?</h2>
         <p>Conte o que você precisa proteger e receba a cotação pelo WhatsApp.</p>
         <a href="https://wa.me/551532320077?text=Ol%C3%A1!%20Quero%20cotar%20meu%20seguro%20com%20a%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener" class="btn btn-white">
-          <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Falar com um corretor
+          <svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Fale com um corretor pelo WhatsApp
         </a>
       </div>
       <div class="cta-art">
@@ -361,7 +345,7 @@
 <!-- ==================== CONTATO ==================== -->
 <section class="contact-section" aria-label="Contato">
   <div class="container contact-strip">
-    <div class="contact-item"><svg class="icon"><use href="#i-whatsapp"/></svg><div><strong>WhatsApp</strong><a href="https://wa.me/551532320077" target="_blank" rel="noopener">(15) 3232-0077</a></div></div>
+    <div class="contact-item"><svg class="icon"><use href="#i-whatsapp"/></svg><div><strong>WhatsApp</strong><a href="https://wa.me/551532320077" target="_blank" rel="noopener" data-direto>(15) 3232-0077</a></div></div>
     <div class="contact-item"><svg class="icon"><use href="#i-mail"/></svg><div><strong>E-mail</strong><a href="mailto:contato@apoliceseg.com.br">contato@apoliceseg.com.br</a></div></div>
     <div class="contact-item"><svg class="icon"><use href="#i-pin"/></svg><div><strong>Onde estamos</strong><span>Sorocaba / SP · Atendemos todo o Brasil</span></div></div>
   </div>
@@ -386,7 +370,7 @@
     <div class="footer-grid">
       <div class="footer-column">
         <p class="footer-title">Canais de atendimento</p>
-        <a class="footer-wa-btn" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Atendimento pelo WhatsApp</a>
+        <a class="footer-wa-btn" href="https://wa.me/551532320077?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ap%C3%B3lice%20Seg." target="_blank" rel="noopener"><svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Fale com um corretor pelo WhatsApp</a>
         <a class="footer-contact" href="tel:+551532320077"><svg class="icon"><use href="#i-phone"/></svg><span><b>Central</b> (15) 3232-0077</span></a>
         <a class="footer-contact" href="mailto:contato@apoliceseg.com.br"><svg class="icon"><use href="#i-mail"/></svg><span>contato@apoliceseg.com.br</span></a>
         <p class="footer-muted">Sorocaba / SP · Atendimento em todo o Brasil</p>
