@@ -31,7 +31,7 @@ Por isso, ao trocar uma foto, dê um nome novo (ex.: `saude-v3.jpg`) e atualize 
 O branch `estado-seguro-07out` guarda a última versão aprovada antes do refino de produto. Para voltar, crie um PR dele para o `main`.
 
 ## Cotação pelo WhatsApp (3 passos)
-Todo botão de WhatsApp e todo "Fazer cotação" abre o mesmo fluxo: (1) quais seguros cotar, (2) nome, e-mail e data de nascimento (só para Automóvel, Saúde e Vida), (3) informações de cada seguro + observações. No fim, abre o WhatsApp da corretora com a mensagem organizada e o cliente só toca em enviar.
+Cada parte da página tem um botão "Faça a cotação no WhatsApp" (marcado com `data-cta`), e nunca aparecem dois na tela ao mesmo tempo: quando nenhum está à vista, surge o botão fixo no canto. Todos abrem o fluxo: (1) quais seguros cotar, (2) nome, e-mail e data de nascimento (só para Automóvel, Saúde e Vida), (3) informações de cada seguro + observações. No fim, abre o WhatsApp da corretora com a mensagem organizada e o cliente só toca em enviar.
 - Perguntas de cada seguro: objeto `SEGUROS` no `site.js`.
 - Link que já abre o fluxo (bom para a bio do Instagram): `apoliceseg.vercel.app/#cotacao`.
 - Contatos (número no topo, faixa de contato, rodapé, equipe) abrem o WhatsApp direto, sem o fluxo: é o atributo `data-direto` no `<a>`.
