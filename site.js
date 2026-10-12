@@ -550,6 +550,35 @@
     abrirCotacao(seguro, localDoClique(el), NOME_CORRETOR[el.getAttribute('data-corretor')] || '');
   });
 
+  /* ---------- Um botão de cotação por vez na tela ----------
+     Cada parte da página tem seu botão (marcado com data-cta). Quando nenhum
+     deles está à vista, aparece o botão fixo no canto. Se dois aparecerem ao
+     mesmo tempo, fica só o primeiro. */
+  var ctas = Array.prototype.slice.call(document.querySelectorAll('[data-cta]'));
+  var flutuante = document.querySelector('.wa-float');
+  if ('IntersectionObserver' in window && (ctas.length || flutuante)) {
+    var aVista = [];
+    if (flutuante && ctas.length) flutuante.classList.add('wa-float--oculto');
+    var atualizarBotoes = function () {
+      var primeiro = null;
+      ctas.forEach(function (b) {
+        var ver = aVista.indexOf(b) !== -1 && !primeiro;
+        if (ver) primeiro = b;
+        b.classList.toggle('cta-oculto', aVista.indexOf(b) !== -1 && !ver);
+      });
+      if (flutuante) flutuante.classList.toggle('wa-float--oculto', !!primeiro);
+    };
+    var ioCta = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var i = aVista.indexOf(e.target);
+        if (e.isIntersecting && i === -1) aVista.push(e.target);
+        if (!e.isIntersecting && i !== -1) aVista.splice(i, 1);
+      });
+      atualizarBotoes();
+    }, { threshold: 0 });
+    ctas.forEach(function (b) { ioCta.observe(b); });
+  }
+
   /* Quem chega com #cotacao no endereço (ex.: link na bio do Instagram) já vê o fluxo aberto. */
   if (location.hash === '#cotacao') abrirCotacao('', 'link_direto');
 

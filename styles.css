@@ -337,9 +337,13 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 @media (max-width: 639px) { .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); } .footer-brand-row { gap: var(--space-4); } }
 
 /* ---------- WhatsApp flutuante ---------- */
-.wa-float { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 90; min-height: 56px; padding: 0 22px 0 18px; border-radius: var(--radius-pill); background: var(--color-whatsapp); color: var(--color-neutral-950); font-size: var(--text-base); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .2s; }
+.wa-float { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 90; min-height: 56px; padding: 0 22px 0 18px; border-radius: var(--radius-pill); background: var(--color-whatsapp); color: var(--color-neutral-950); font-size: var(--text-base); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: opacity .25s, transform .25s, visibility .25s; }
 .wa-float:hover { transform: translateY(-2px); }
+.wa-float--oculto { opacity: 0; visibility: hidden; transform: translateY(16px); pointer-events: none; }
+[data-cta] { transition: opacity .25s, visibility .25s; }
+.cta-oculto { opacity: 0; visibility: hidden; transition: none; }
 .wa-float svg { width: 26px; height: 26px; fill: currentColor; flex-shrink: 0; }
+@media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } }
 @media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } body { padding-bottom: 88px; } }
 
 /* ---------- Página Sobre ---------- */
