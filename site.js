@@ -332,7 +332,7 @@
         '</section>' +
 
         '<section class="cot-tela" data-tela="3" hidden>' +
-          '<h2>Para cotar mais rápido</h2>' +
+          '<h2>Complementos para cotação</h2>' +
           '<p class="cot-sub">Tudo opcional. O que não souber, o corretor pergunta depois.</p>' +
           '<div id="cotCampos"></div>' +
           '<div class="form-field"><label for="cotObs">Observações</label>' +
@@ -512,10 +512,10 @@
     cotLocal = local || 'cta';
     cotCorretor = corretor || '';
     if (cotPasso === 4) cotPasso = 1;
-    if (seguro) {
-      var box = cot.querySelector('input[name="seguro"][value="' + seguro + '"]');
+    String(seguro || '').split(',').forEach(function (s) {
+      var box = s && cot.querySelector('input[name="seguro"][value="' + s + '"]');
       if (box) box.checked = true;
-    }
+    });
     if (typeof cot.showModal === 'function') cot.showModal(); else cot.setAttribute('open', '');
     document.documentElement.classList.add('cot-aberta');
     irPara(cotPasso);
@@ -525,6 +525,7 @@
 
   function localDoClique(el) {
     return el.classList.contains('wa-float') ? 'botao_flutuante'
+         : el.closest('.hero') ? 'hero'
          : el.classList.contains('team-wa') ? 'equipe'
          : el.hasAttribute('data-produto') ? 'saiba_mais_' + el.getAttribute('data-produto')
          : el.hasAttribute('data-cotar') ? 'cartao_' + el.getAttribute('data-cotar')
@@ -549,6 +550,27 @@
     var seguro = el.getAttribute('data-cotar') || PRODUTO_PARA_SEGURO[el.getAttribute('data-produto')] || '';
     abrirCotacao(seguro, localDoClique(el), NOME_CORRETOR[el.getAttribute('data-corretor')] || '');
   });
+
+  /* ---------- Hero: chips de proteção → botão de cotação ---------- */
+  var heroBtn = document.getElementById('heroCotar');
+  var heroChips = document.querySelectorAll('.hero-chip');
+  if (heroBtn && heroChips.length) {
+    var atualizarHero = function () {
+      var on = Array.prototype.filter.call(heroChips, function (c) { return c.getAttribute('aria-pressed') === 'true'; });
+      var segs = [];
+      on.forEach(function (c) { var s = c.getAttribute('data-seguro'); if (segs.indexOf(s) === -1) segs.push(s); });
+      heroBtn.setAttribute('data-cotar', segs.join(','));
+      document.getElementById('heroCotarTxt').textContent = !on.length ? 'Cotar no WhatsApp'
+        : on.length <= 2 ? 'Cotar ' + on.map(function (c) { return c.textContent; }).join(' + ') + ' no WhatsApp'
+        : 'Cotar ' + on.length + ' proteções no WhatsApp';
+    };
+    heroChips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        atualizarHero();
+      });
+    });
+  }
 
   /* ---------- Um botão de cotação por vez na tela ----------
      Cada parte da página tem seu botão (marcado com data-cta). Quando nenhum
