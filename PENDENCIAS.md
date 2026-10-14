@@ -11,8 +11,7 @@ Atualizado em 09/10/2026. Cada item diz **onde entra** no site. Nada aqui é pub
 | **Canal de reclamações / ouvidoria** (da corretora e das seguradoras) | Rodapé |
 
 ## Para confirmar (hoje no site, sem validação)
-- "Até 30 minutos" de cotação por WhatsApp e "até 24h" no plano empresarial (FAQ).
-- "Mais de 15 seguradoras" (FAQ e outros trechos).
+- "Até 24h" no plano empresarial (FAQ). Confirmados em 14/10/2026: "até 30 minutos" no WhatsApp, assistência 24h e "mais de 15 seguradoras" (falta só a lista, que entra junto com as logos).
 - "Certificados" (home, seção de diferenciais).
 - Se (15) 3232-0077 também é WhatsApp.
 - Exemplos da página Sobre ("Chame no WhatsApp quando"): confirmar com as seguradoras que cada situação existe como cobertura ou assistência, em especial: perda de chave (residencial), falta de luz por problema elétrico (residencial), falta de combustível (assistência), granizo e queda de árvore (alagamento), cliente que se machuca no estabelecimento (empresarial).
