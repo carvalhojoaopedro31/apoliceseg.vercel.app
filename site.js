@@ -274,7 +274,7 @@
       { id: 'ramo', rotulo: 'Ramo da empresa', ex: 'Ex.: Padaria, escritório, indústria' },
       { id: 'cep', rotulo: 'CEP da empresa', ex: 'Ex.: 18035-000', num: true }
     ] },
-    odontologico: { nome: 'Odontológico', campos: [
+    odontologico: { nome: 'Plano Odontológico', campos: [
       { id: 'para', rotulo: 'Para quem é o plano?', opcoes: ['Só para mim', 'Para mim e minha família', 'Para minha empresa (CNPJ)'] },
       { id: 'vidas', rotulo: 'Quantas pessoas', ex: 'Ex.: 3 pessoas' },
       { id: 'cidade', rotulo: 'Cidade', ex: 'Ex.: Sorocaba' }
@@ -337,10 +337,10 @@
         '<div class="cot-barra" aria-hidden="true"><i id="cotBarra"></i></div>' +
 
         '<section class="cot-tela" data-tela="1">' +
-          '<h2 id="cotTitulo">Qual seguro você quer cotar?</h2>' +
+          '<h2 id="cotTitulo">O que você quer cotar?</h2>' +
           '<p class="cot-sub">Pode marcar mais de um.</p>' +
           '<div class="cot-chips">' + chips + '</div>' +
-          '<p class="cot-erro" data-erro="1" hidden>Marque pelo menos um seguro.</p>' +
+          '<p class="cot-erro" data-erro="1" hidden>Marque pelo menos uma opção.</p>' +
           '<p class="cot-direto">Já é cliente ou precisa de ajuda agora (batida, roubo, guincho)? ' +
             '<a href="https://wa.me/' + WA_NUMERO + '" target="_blank" rel="noopener" data-direto>Fale direto no WhatsApp</a></p>' +
         '</section>' +
@@ -352,7 +352,7 @@
             '<input id="cotNome" class="input" autocomplete="name" required placeholder="Ex.: Maria Silva"></div>' +
           '<div class="form-field" id="cotNascBox"><label for="cotNasc">Data de nascimento</label>' +
             '<input id="cotNasc" class="input" inputmode="numeric" autocomplete="bday" placeholder="dd/mm/aaaa" maxlength="10">' +
-            '<small class="cot-dica">A idade muda o preço do seguro, por isso a seguradora pede.</small></div>' +
+            '<small class="cot-dica">A idade muda o preço, por isso a seguradora ou a operadora pede.</small></div>' +
           '<div class="form-field"><label for="cotEmail">E-mail <span class="cot-opc">(opcional)</span></label>' +
             '<input id="cotEmail" class="input" type="email" autocomplete="email" placeholder="Para receber a proposta em PDF"></div>' +
           '<p class="cot-erro" data-erro="2" hidden></p>' +
@@ -454,7 +454,7 @@
   function mensagem() {
     var linhas = ['Olá! Quero uma cotação pelo site da Apólice Seg.'];
     if (cotCorretor) linhas.push('Gostaria de ser atendido(a) por ' + cotCorretor + '.');
-    linhas.push('', '*Seguros:* ' + marcados().map(function (k) { return SEGUROS[k].nome; }).join(', '));
+    linhas.push('', '*Quero cotar:* ' + marcados().map(function (k) { return SEGUROS[k].nome; }).join(', '));
     linhas.push('*Nome:* ' + document.getElementById('cotNome').value.trim());
     if (precisaNasc()) linhas.push('*Nascimento:* ' + document.getElementById('cotNasc').value.trim());
     var email = document.getElementById('cotEmail').value.trim();
