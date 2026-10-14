@@ -426,14 +426,7 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .story#saude .story-media img { object-position: 25% center; }
 .story#residencial .story-media img { object-position: 78% center; }
 .story#odontologico .story-media img { object-position: 80% center; }
-/* Consórcios: foto inteira, sem corte. No computador, as sobras do quadro ganham
-   a própria foto desfocada ao fundo; no celular, o quadro segue a proporção da foto. */
-.story#consorcio .story-media { overflow: hidden; }
-.story#consorcio .story-media::before { content: ""; position: absolute; inset: -40px; background: url("img/sobre/consorcio-800.webp") center / cover no-repeat; filter: blur(24px) brightness(0.92); }
-.story#consorcio .story-media img { z-index: 1; object-fit: contain; }
-@media (max-width: 1023px) {
-  .story#consorcio .story-media { height: auto; aspect-ratio: 16 / 10; }
-}
+.story#consorcio .story-media img { object-position: center 45%; }
 .story#equipamentos .story-media img { object-position: 72% center; }
 .story#responsabilidade-civil .story-media img { object-position: 60% center; }
 
