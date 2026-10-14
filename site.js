@@ -27,9 +27,9 @@
     },
     /* Histórias da página Sobre que já têm a foto par (sem seguro x com seguro).
        Quando mandar a foto, suba o arquivo em img/sobre/ e acrescente o nome aqui.
-       Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial'.
+       Nomes: 'batida', 'roubo', 'alagamento', 'saude', 'residencial', 'vida', 'empresarial', 'equipamentos', 'viagem'.
        Cada foto precisa ter as versões .jpg e .webp (-800 e -1600). */
-    pares: ['batida', 'residencial', 'saude', 'empresarial']
+    pares: ['batida', 'residencial', 'saude', 'empresarial', 'equipamentos', 'viagem']
   };
 
   /* Liga cada recurso com uma classe no <html>; o CSS faz o resto. */
