@@ -425,6 +425,10 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .story#vida .story-media img { object-position: 55% center; }
 .story#saude .story-media img { object-position: 25% center; }
 .story#residencial .story-media img { object-position: 78% center; }
+.story#odontologico .story-media img { object-position: 80% center; }
+.story#consorcio .story-media img { object-position: 85% center; }
+.story#equipamentos .story-media img { object-position: 72% center; }
+.story#responsabilidade-civil .story-media img { object-position: 60% center; }
 
 /* =====================================================================
    Refino de produto: componentes simples, menos cartões
