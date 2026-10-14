@@ -640,3 +640,6 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 @media (max-width: 767px) { .quem-grid { grid-template-columns: 1fr; } }
 
 .hero-actions .btn { white-space: nowrap; }
+
+.prod-mais { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: var(--space-6); }
+.prod-mais-rotulo { font-size: var(--text-sm); font-weight: 600; color: var(--color-neutral-600); margin-right: 4px; }

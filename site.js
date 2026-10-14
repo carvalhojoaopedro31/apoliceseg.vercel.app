@@ -274,6 +274,31 @@
       { id: 'ramo', rotulo: 'Ramo da empresa', ex: 'Ex.: Padaria, escritório, indústria' },
       { id: 'cep', rotulo: 'CEP da empresa', ex: 'Ex.: 18035-000', num: true }
     ] },
+    odontologico: { nome: 'Odontológico', campos: [
+      { id: 'para', rotulo: 'Para quem é o plano?', opcoes: ['Só para mim', 'Para mim e minha família', 'Para minha empresa (CNPJ)'] },
+      { id: 'vidas', rotulo: 'Quantas pessoas', ex: 'Ex.: 3 pessoas' },
+      { id: 'cidade', rotulo: 'Cidade', ex: 'Ex.: Sorocaba' }
+    ] },
+    viagem: { nome: 'Viagem', nasc: true, campos: [
+      { id: 'destino', rotulo: 'Destino', ex: 'Ex.: Portugal e Espanha' },
+      { id: 'datas', rotulo: 'Datas de ida e volta', ex: 'Ex.: 10/01 a 25/01' },
+      { id: 'pessoas', rotulo: 'Quantas pessoas e as idades', ex: 'Ex.: 2 pessoas: 40 e 38 anos' }
+    ] },
+    consorcio: { nome: 'Consórcio', campos: [
+      { id: 'bem', rotulo: 'O que quer conquistar?', opcoes: ['Carro ou moto', 'Imóvel', 'Serviços (reforma, viagem, estudo)', 'Outro'] },
+      { id: 'credito', rotulo: 'Valor do bem que imagina', ex: 'Ex.: R$ 80 mil' },
+      { id: 'parcela', rotulo: 'Parcela que cabe no seu bolso (se tiver ideia)', ex: 'Ex.: até R$ 900 por mês' }
+    ] },
+    equipamentos: { nome: 'Equipamentos', campos: [
+      { id: 'quais', rotulo: 'Quais equipamentos', ex: 'Ex.: notebook e câmera' },
+      { id: 'valor', rotulo: 'Valor aproximado', ex: 'Ex.: R$ 12 mil' },
+      { id: 'uso', rotulo: 'Uso', opcoes: ['Pessoal', 'Trabalho', 'Os dois'] }
+    ] },
+    'responsabilidade-civil': { nome: 'Responsabilidade Civil', campos: [
+      { id: 'atividade', rotulo: 'Profissão ou ramo da empresa', ex: 'Ex.: Engenheiro, clínica, construtora' },
+      { id: 'tipo', rotulo: 'É para', opcoes: ['Profissional (CPF)', 'Empresa (CNPJ)'] },
+      { id: 'cidade', rotulo: 'Cidade', ex: 'Ex.: Sorocaba' }
+    ] },
     frotas: { nome: 'Frotas', campos: [
       { id: 'qtd', rotulo: 'Quantos veículos e de que tipo', ex: 'Ex.: 6 carros e 2 caminhões' },
       { id: 'cidade', rotulo: 'Cidade onde ficam', ex: 'Ex.: Sorocaba' }
@@ -284,7 +309,9 @@
   var PRODUTO_PARA_SEGURO = {
     automovel: 'automovel', assistencia: 'automovel', 'automovel-roubo': 'automovel',
     'automovel-alagamento': 'automovel', saude: 'saude', vida: 'vida',
-    residencial: 'residencial', empresarial: 'empresarial'
+    residencial: 'residencial', empresarial: 'empresarial',
+    odontologico: 'odontologico', viagem: 'viagem', consorcio: 'consorcio',
+    equipamentos: 'equipamentos', 'responsabilidade-civil': 'responsabilidade-civil'
   };
   var NOME_CORRETOR = { luciana: 'Luciana', pedro: 'Pedro' };
 
