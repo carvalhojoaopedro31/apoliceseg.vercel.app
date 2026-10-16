@@ -264,6 +264,7 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .stat strong { display: block; font-size: 36px; font-weight: 800; color: var(--color-primary-900); letter-spacing: var(--tracking-tight); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat span { display: flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--color-neutral-600); }
 .team-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--color-secondary-100); color: var(--color-secondary-700); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--text-xl); overflow: hidden; }
+.team-avatar picture { display: block; width: 100%; height: 100%; }
 .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .team-role { font-size: var(--text-sm); color: var(--color-neutral-600); }
 .team-wa { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; font-size: var(--text-sm); font-weight: 600; color: var(--color-primary-700); text-decoration: none; }
