@@ -649,3 +649,19 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 
 .prod-mais { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: var(--space-6); }
 .prod-mais-rotulo { font-size: var(--text-sm); font-weight: 600; color: var(--color-neutral-600); margin-right: 4px; }
+
+/* ---------- Seguradoras por grupo + lista no rodapé ---------- */
+.partners-group { text-align: center; font-size: var(--text-sm); font-weight: 700; color: var(--color-primary-700); margin: var(--space-6) 0 var(--space-3); }
+.logo-chip:target { outline: 3px solid var(--color-primary-500); outline-offset: 2px; scroll-margin-top: 120px; }
+.legal-page { max-width: 760px; padding-block: var(--space-12); }
+.legal-page h1 { margin-bottom: var(--space-4); } .legal-page h2 { margin: var(--space-8) 0 var(--space-2); font-size: var(--text-xl); }
+.legal-page p, .legal-page li { line-height: 1.7; margin-bottom: var(--space-3); }
+.legal-rascunho { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: #FFF4D6; color: #5A4300; font-size: var(--text-sm); }
+.footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-8); }
+.footer-column--parceiras ul { gap: var(--space-1); }
+.footer-column--parceiras li { line-height: 1.3; }
+.footer-column--parceiras a { font-size: var(--text-sm); color: #C9CCDA; }
+.footer-column--parceiras a:hover { color: var(--color-white); text-decoration: underline; }
+@media (max-width: 1023px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 639px) { .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); } }
+@media (min-width: 1024px) { .footer-column--parceiras a { min-height: 30px; } }
