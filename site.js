@@ -15,6 +15,8 @@
     metaPixel: '',
     susep:     '202073554',
     cnpj:      '21.636.796/0001-43',
+    razao:     'Apolice Seg Sorocaba Corretora de Seguros LTDA',
+    endereco:  'Avenida Itavuvu, 126, Sala 11, Vila Olimpia, Sorocaba/SP, CEP 18075-042',
     /* Número de cada corretor (opcional). Vazio = usa o número principal.
        Quando preenchido, o botão "Falar com ..." da equipe abre a conversa
        direto com o corretor. Formato: '5515999998888'. */
@@ -68,8 +70,10 @@
 
   /* ---------- SUSEP / CNPJ no rodapé ---------- */
   var legal = [];
+  if (CONFIG.razao) legal.push(CONFIG.razao);
   if (CONFIG.susep) legal.push('Registro SUSEP nº ' + CONFIG.susep);
   if (CONFIG.cnpj)  legal.push('CNPJ ' + CONFIG.cnpj);
+  if (CONFIG.endereco) legal.push(CONFIG.endereco);
   if (CONFIG.susep) {
     var faqSusep = document.getElementById('faqSusep'), faqNum = document.getElementById('faqSusepNum');
     if (faqSusep && faqNum) { faqNum.textContent = CONFIG.susep; faqSusep.hidden = false; }
