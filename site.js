@@ -13,7 +13,7 @@
     whatsapp:  '551532320077',
     ga4:       '',  /* ID reservado: G-SHJ9MBK0TJ. Coloque aqui junto com o Meta Pixel, que o aviso de cookies liga sozinho. */
     metaPixel: '',
-    susep:     '',
+    susep:     '202073554',
     cnpj:      '21.636.796/0001-43',
     /* Número de cada corretor (opcional). Vazio = usa o número principal.
        Quando preenchido, o botão "Falar com ..." da equipe abre a conversa
@@ -68,7 +68,7 @@
 
   /* ---------- SUSEP / CNPJ no rodapé ---------- */
   var legal = [];
-  if (CONFIG.susep) legal.push('SUSEP nº ' + CONFIG.susep);
+  if (CONFIG.susep) legal.push('Registro SUSEP nº ' + CONFIG.susep);
   if (CONFIG.cnpj)  legal.push('CNPJ ' + CONFIG.cnpj);
   if (CONFIG.susep) {
     var faqSusep = document.getElementById('faqSusep'), faqNum = document.getElementById('faqSusepNum');
