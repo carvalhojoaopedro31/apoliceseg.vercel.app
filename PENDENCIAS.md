@@ -1,14 +1,14 @@
 # Pendências de informação (o que falta passar para fechar os textos)
 
-Atualizado em 09/10/2026. Cada item diz **onde entra** no site. Nada aqui é publicado: o arquivo só guarda a lista.
+Atualizado em 17/10/2026. Cada item diz **onde entra** no site. Nada aqui é publicado: o arquivo só guarda a lista.
 
 ## Obrigatórias para uma corretora
 | Informação | Onde entra |
 |---|---|
-| **Número da SUSEP** | `CONFIG.susep` em `site.js`. Aparece no rodapé e libera a pergunta "A Apólice Seg tem registro na SUSEP?" no FAQ |
-| **Horário de atendimento** | Rodapé (coluna "Canais de atendimento") |
 | **Política de privacidade** (texto revisado por advogado) + link | Rodapé e aviso de cookies |
 | **Canal de reclamações / ouvidoria** (da corretora e das seguradoras) | Rodapé |
+
+Já no site (17/10/2026): registro SUSEP nº 202073554 e horário (segunda a sexta, 9h às 17h; assistências e urgências 24 horas).
 
 ## Para confirmar (hoje no site, sem validação)
 - "Até 24h" no plano empresarial (FAQ). Confirmados em 14/10/2026: "até 30 minutos" no WhatsApp, assistência 24h e "mais de 15 seguradoras" (falta só a lista, que entra junto com as logos).
