@@ -649,3 +649,15 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 
 .prod-mais { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: var(--space-6); }
 .prod-mais-rotulo { font-size: var(--text-sm); font-weight: 600; color: var(--color-neutral-600); margin-right: 4px; }
+
+/* ---------- Seguradoras por grupo + lista no rodapé ---------- */
+.partners-group { text-align: center; font-size: var(--text-sm); font-weight: 700; color: var(--color-primary-700); margin: var(--space-6) 0 var(--space-3); }
+.logo-chip:target { outline: 3px solid var(--color-primary-500); outline-offset: 2px; scroll-margin-top: 120px; }
+.footer-parceiras { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid rgb(255 255 255 / 0.10); }
+.footer-parceiras-lista { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-3); }
+.footer-parceiras-lista a { color: #C9CCDA; font-size: var(--text-sm); text-decoration: none; }
+.footer-parceiras-lista a:hover { color: var(--color-white); text-decoration: underline; }
+.legal-page { max-width: 760px; padding-block: var(--space-12); }
+.legal-page h1 { margin-bottom: var(--space-4); } .legal-page h2 { margin: var(--space-8) 0 var(--space-2); font-size: var(--text-xl); }
+.legal-page p, .legal-page li { line-height: 1.7; margin-bottom: var(--space-3); }
+.legal-rascunho { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: #FFF4D6; color: #5A4300; font-size: var(--text-sm); }

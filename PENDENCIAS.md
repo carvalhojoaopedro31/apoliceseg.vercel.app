@@ -5,7 +5,7 @@ Atualizado em 17/10/2026. Cada item diz **onde entra** no site. Nada aqui é pub
 ## Obrigatórias para uma corretora
 | Informação | Onde entra |
 |---|---|
-| **Política de privacidade** (texto revisado por advogado) + link | Rodapé e aviso de cookies |
+| **Política de privacidade e Termos de uso**: rascunhos publicados em politica-de-privacidade.html e termos-de-uso.html, falta a revisão do advogado (e tirar o aviso de rascunho) | Rodapé e aviso de cookies |
 | **Canal de reclamações / ouvidoria** (da corretora e das seguradoras) | Rodapé |
 
 Já no site (17/10/2026): registro SUSEP nº 202073554 e horário (segunda a sexta, 9h às 17h; assistências e urgências 24 horas).
