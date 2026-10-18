@@ -18,7 +18,6 @@ Já no site (17/10/2026): registro SUSEP nº 202073554 e horário (segunda a sex
 - Saúde: manter sem prazo de carência nem promessa de cobertura (regulado pela ANS).
 
 ## Conteúdo e imagens
-- Fotos de **Luciana e Pedro** (seção da equipe).
 - **Logos e lista das seguradoras** (bloco escondido na home).
 - Textos "Saiba mais" de cada produto (comentários marcados em `sobre.html`).
 - Empresarial: gerar de novo o "depois" mantendo a mesma calçada do "antes" (opcional).
