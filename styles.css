@@ -657,6 +657,17 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 .legal-page h1 { margin-bottom: var(--space-4); } .legal-page h2 { margin: var(--space-8) 0 var(--space-2); font-size: var(--text-xl); }
 .legal-page p, .legal-page li { line-height: 1.7; margin-bottom: var(--space-3); }
 .legal-rascunho { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: #FFF4D6; color: #5A4300; font-size: var(--text-sm); }
+.legal-page ul, .legal-page ol { padding-left: 1.25rem; margin-bottom: var(--space-4); }
+.legal-page ul { list-style: disc; } .legal-page ol { list-style: decimal; }
+.legal-page h2 { scroll-margin-top: var(--space-6); }
+.legal-indice { margin: var(--space-6) 0; padding: var(--space-4) var(--space-5); border-radius: var(--radius-md); background: #F4F6F8; }
+.legal-indice li { margin-bottom: var(--space-1); }
+.legal-page .tabela-rolagem { overflow-x: auto; margin-bottom: var(--space-4); }
+.legal-page table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.legal-page th, .legal-page td { text-align: left; vertical-align: top; padding: var(--space-2) var(--space-3); border-bottom: 1px solid rgb(0 0 0 / 0.10); line-height: 1.5; }
+.legal-page th { font-weight: 700; }
+.legal-page .btn + .btn { margin-left: var(--space-2); }
+.preencher { background: #FFE08A; color: #5A4300; padding: 0 4px; border-radius: 4px; font-weight: 600; }
 .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-8); }
 .footer-column--parceiras ul { gap: var(--space-1); }
 .footer-column--parceiras li { line-height: 1.3; }
