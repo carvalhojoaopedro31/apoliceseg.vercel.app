@@ -11,7 +11,7 @@ Site estático da Apólice Seg (HTML, CSS e JS, sem build). A Vercel publica dir
 - `robots.txt`, `sitemap.xml`, `404.html`, `vercel.json`: infraestrutura.
 
 ## Lembretes de pendências
-Abra o site com `?lembretes=1` no final do endereço (ex.: `apoliceseg.vercel.app/?lembretes=1`).
+Abra o site com `?lembretes=1` no final do endereço (ex.: `www.apoliceseg.com.br/?lembretes=1`).
 Aparecem avisos laranjas onde falta algo (logos das seguradoras, fotos da equipe, números a confirmar, SUSEP, GA4, Pixel).
 O público não vê nada disso.
 
@@ -33,7 +33,7 @@ O branch `estado-seguro-07out` guarda a última versão aprovada antes do refino
 ## Cotação pelo WhatsApp (3 passos)
 Cada parte da página tem um botão "Faça a cotação no WhatsApp" (marcado com `data-cta`), e nunca aparecem dois na tela ao mesmo tempo: quando nenhum está à vista, surge o botão fixo no canto. Todos abrem o fluxo: (1) quais seguros cotar, (2) nome, e-mail e data de nascimento (só para Automóvel, Saúde e Vida), (3) informações de cada seguro + observações. No fim, abre o WhatsApp da corretora com a mensagem organizada e o cliente só toca em enviar.
 - Perguntas de cada seguro: objeto `SEGUROS` no `site.js`.
-- Link que já abre o fluxo (bom para a bio do Instagram): `apoliceseg.vercel.app/#cotacao`.
+- Link que já abre o fluxo (bom para a bio do Instagram): `www.apoliceseg.com.br/#cotacao`.
 - Contatos (número no topo, faixa de contato, rodapé, equipe) abrem o WhatsApp direto, sem o fluxo: é o atributo `data-direto` no `<a>`.
 - Eventos no GA4: `cotacao_aberta`, `cotacao_passo` (1, 2, 3, 4 = enviou) e `generate_lead`.
 
