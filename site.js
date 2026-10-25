@@ -253,6 +253,10 @@
           empresa, CPF/CNPJ opcional, CEP e e-mail opcional);
        4. como prefere ser atendido, observação e ciência da privacidade.
      Quem já é cliente ou só tem uma dúvida pula a tela 2.
+     Renovação pergunta antes se a pessoa já é cliente ou vem de outra
+     corretora. Cliente da casa só diz o nome e a mensagem vai direto ao
+     corretor (a apólice já está com a gente). Quem vem de outra corretora
+     segue o fluxo normal, com o nº da apólice vigente junto dos dados.
      No fim, abre o WhatsApp da corretora com a ficha pronta; o cliente só
      toca em enviar. O telefone não é pedido: chega junto com a mensagem.
      As perguntas de cada seguro (veículo, imóvel, idades...) o corretor faz
@@ -292,7 +296,16 @@
     duvida: { txt: 'Só quero tirar uma dúvida', ficha: 'Dúvida' }
   };
   var PREFERENCIAS = ['Mensagem', 'Áudio', 'Ligação'];
+  var QUER = [{ v: 'Manter igual', txt: 'Manter igual' }, { v: 'Outra cotação', txt: 'Fazer outra cotação', sub: 'Comparar com outras seguradoras.' }];
+  function perguntaQuer() {
+    return '<fieldset class="cot-q"><legend>Na renovação, você quer</legend>' + opcoes('quer', QUER, R.quer) + '</fieldset>';
+  }
+  var ORIGENS = {
+    casa: { txt: 'Já sou cliente da Apólice Seg', sub: 'A gente já tem a sua apólice.', ficha: 'Renovar (já é cliente)' },
+    outra: { txt: 'Meu seguro está em outra corretora', sub: 'Ou foi feito direto na seguradora.', ficha: 'Renovar (vem de outra corretora)' }
+  };
   /* Faixa curta que aparece ao avançar e some sozinha. */
+  var INCENTIVO_RENOVAR = { produtos: 'Ótimo! Renovar é rapidinho.', dados: 'Quase lá!', contato: 'Último passo!' };
   var INCENTIVO = {
     produtos: 'Ótimo! São só 3 perguntinhas.',
     dados: 'Boa escolha! Você está na metade.',
@@ -311,16 +324,24 @@
 
   function lista(k) { return R[k] || []; }
   function vazio(v) { return v == null || String(v).trim() === ''; }
-  function curto() { return R.tipo === 'cliente' || R.tipo === 'duvida'; }
+  function renovar() { return R.tipo === 'renovar'; }
+  function renovaCasa() { return renovar() && R.origem === 'casa'; }
+  function curto() { return R.tipo === 'cliente' || R.tipo === 'duvida' || renovaCasa(); }
   function ehEmpresa() { return R.quem === 'CNPJ'; }
 
-  /* Telas na ordem; a barra mostra 25, 50, 75 e 100%. */
+  /* Telas na ordem; a barra avança por igual até 100%. */
   function sequencia() {
-    return curto() ? ['inicio', 'dados', 'contato'] : ['inicio', 'produtos', 'dados', 'contato'];
+    return renovaCasa() ? ['inicio', 'origem', 'dados']
+      : curto() ? ['inicio', 'dados', 'contato']
+      : renovar() ? ['inicio', 'origem', 'produtos', 'dados', 'contato']
+      : ['inicio', 'produtos', 'dados', 'contato'];
   }
   function pctDe(tela) {
-    return { inicio: 25, produtos: 50, dados: 75, contato: 100 }[tela] || 100;
+    var seq = sequencia(), i = seq.indexOf(tela);
+    return i === -1 ? 100 : Math.round((i + 1) / seq.length * 100);
   }
+  /* Última tela da sequência: o botão vira "Enviar para o WhatsApp". */
+  function ultima(tela) { var seq = sequencia(); return seq[seq.length - 1] === tela; }
 
   /* ---------- Campos ---------- */
   function opcoes(nome, valores, atual, grande) {
@@ -344,6 +365,12 @@
       opcoes('tipo', Object.keys(TIPOS).map(function (k) { return { v: k, txt: TIPOS[k].txt, sub: TIPOS[k].sub }; }), R.tipo, true);
   }
 
+  /* Renovação: já é cliente ou vem de outra corretora? */
+  function htmlOrigem() {
+    return '<h2 id="cotTitulo" tabindex="-1">Você já é nosso cliente ou está em outra corretora?</h2>' +
+      opcoes('origem', Object.keys(ORIGENS).map(function (k) { return { v: k, txt: ORIGENS[k].txt, sub: ORIGENS[k].sub }; }), R.origem, true);
+  }
+
   function htmlProdutos() {
     var marc = lista('seguros');
     return '<h2 id="cotTitulo" tabindex="-1">' + (R.tipo === 'renovar' ? 'Qual seguro você quer renovar?' : 'Qual proteção você procura?') + '</h2>' +
@@ -353,10 +380,16 @@
       }).map(function (k) {
         return '<label class="cot-chip"><input type="checkbox" name="seguros" value="' + k + '" data-k="seguros" data-multi' +
           (marc.indexOf(k) !== -1 ? ' checked' : '') + '><span>' + esc(SEGUROS[k].nome) + '</span></label>';
-      }).join('') + '</div>';
+      }).join('') + '</div>' + (renovar() ? perguntaQuer() : '');
   }
 
   function htmlDados() {
+    if (renovaCasa()) {
+      return '<h2 id="cotTitulo" tabindex="-1">Que bom te ver de novo!</h2>' +
+        '<p class="cot-sub">Só o seu nome: a gente já tem a sua apólice e o corretor te chama no WhatsApp.</p>' +
+        campo('nome', 'Seu nome', ' autocomplete="name" placeholder="Ex.: Maria Silva"') +
+        perguntaQuer() + declaracao();
+    }
     if (curto()) {
       return '<h2 id="cotTitulo" tabindex="-1">' + (R.tipo === 'cliente' ? 'Vamos direto ao corretor' : 'Qual é a sua dúvida?') + '</h2>' +
         '<p class="cot-sub">Seu telefone já chega junto com a mensagem do WhatsApp.</p>' +
@@ -365,6 +398,15 @@
         '<textarea id="c_obs" class="input" rows="3" data-k="obs" placeholder="' +
         (R.tipo === 'cliente' ? 'Ex.: bati o carro, preciso de guincho' : 'Ex.: o seguro cobre enchente?') + '">' + esc(R.obs || '') + '</textarea>' +
         (R.tipo === 'cliente' ? '<small class="cot-dica">Se for urgente, escreva "urgente".</small>' : '') + '</div>';
+    }
+    /* Renovação de quem vem de outra corretora: sem dados básicos, só o
+       nome e o nº da apólice vigente. O resto sai da apólice. */
+    if (renovar()) {
+      return '<h2 id="cotTitulo" tabindex="-1">Sua apólice atual</h2>' +
+        '<p class="cot-sub">O resto a gente tira da própria apólice.</p>' +
+        campo('nome', 'Seu nome', ' autocomplete="name" placeholder="Ex.: Maria Silva"') +
+        campo('apolice', 'Nº da apólice vigente', ' autocomplete="off" placeholder="Está na primeira página da apólice"', true,
+          'Não tem à mão? Depois mande uma foto da apólice no WhatsApp.');
     }
     var empresa = ehEmpresa();
     return '<h2 id="cotTitulo" tabindex="-1">Seus dados básicos</h2>' +
@@ -388,9 +430,13 @@
       (curto() ? '' :
         '<div class="form-field"><label for="c_obs">Quer deixar alguma observação? <span class="cot-opc">(opcional)</span></label>' +
         '<textarea id="c_obs" class="input" rows="3" data-k="obs" placeholder="Ex.: melhor horário para falar">' + esc(R.obs || '') + '</textarea></div>') +
-      '<label class="cot-declara"><input type="checkbox" data-k="ciente"' + (R.ciente ? ' checked' : '') + '>' +
-        '<span>Li e concordo com a <a href="politica-de-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. ' +
-        'Os dados vão só para o WhatsApp da corretora.</span></label>';
+      declaracao();
+  }
+
+  function declaracao() {
+    return '<label class="cot-declara"><input type="checkbox" data-k="ciente"' + (R.ciente ? ' checked' : '') + '>' +
+      '<span>Li e concordo com a <a href="politica-de-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>. ' +
+      'Os dados vão só para o WhatsApp da corretora.</span></label>';
   }
 
   /* Pop-up de agradecimento, depois que o WhatsApp abre. */
@@ -400,6 +446,8 @@
       '<p class="cot-sub">Vamos te retornar o mais rápido possível. Obrigado pela preferência, você é importante para nós.</p>' +
       '<p class="cot-nota">A mensagem só chega para a gente quando você tocar em <strong>enviar</strong> no WhatsApp. ' +
       'Atendemos de segunda a sexta, das 9h às 17h.</p>' +
+      (renovar() && !renovaCasa() ? '<p class="cot-nota"><strong>Dica:</strong> logo depois da mensagem, mande uma foto da sua apólice atual. ' +
+        'Adianta a renovação.</p>' : '') +
       '<a class="btn btn-secondary" id="cotDeNovo" href="#" target="_blank" rel="noopener" data-direto>O WhatsApp não abriu? Toque aqui</a>';
   }
 
@@ -424,10 +472,15 @@
     var l = ['Olá! Vim pelo site da Apólice Seg.'];
     if (cotCorretor) l.push('Gostaria de ser atendido(a) por ' + cotCorretor + '.');
     l.push('', '*FICHA DO SITE* ' + id + ' · ' + quando);
-    l.push('Tipo: ' + TIPOS[R.tipo].ficha);
-    if (!curto()) l.push('Proteção: ' + (nomesSeguros().join(', ') || ni));
+    l.push('Tipo: ' + (renovar() && ORIGENS[R.origem] ? ORIGENS[R.origem].ficha : TIPOS[R.tipo].ficha));
+    if (renovaCasa()) {
+      l.push('Nome: ' + v('nome'), 'Quer: ' + v('quer'), '', '*Atenção:* cliente da casa quer renovar. Puxar a apólice no sistema.');
+      return comOrigem(l.join('\n'));
+    }
+    if (!curto()) l.push((renovar() ? 'Renovar: ' : 'Proteção: ') + (nomesSeguros().join(', ') || ni));
+    if (renovar()) l.push('Apólice vigente nº: ' + v('apolice'), 'Quer: ' + v('quer'));
     l.push('Nome: ' + v('nome'));
-    if (!curto()) {
+    if (!curto() && !renovar()) {
       if (ehEmpresa()) { l.push('Empresa: ' + v('empresa')); l.push('CNPJ: ' + v('doc')); }
       else { l.push('Nascimento: ' + v('nasc')); l.push('CPF: ' + v('doc')); }
       l.push('CEP: ' + v('cep'));
@@ -435,6 +488,10 @@
     }
     l.push('Prefere: ' + v('pref'));
     if (!vazio(R.obs)) l.push((curto() ? 'Assunto: ' : 'Observação: ') + R.obs.trim());
+    if (renovar()) {
+      l.push('', '*Falta pedir:* foto da apólice (vencimento, coberturas e bônus), CPF ou CNPJ e nascimento' + (vazio(R.apolice) ? ', e o nº da apólice' : ''));
+      l.push('*Atenção:* vem de outra corretora. Conferir vencimento, bônus e a troca de corretor na seguradora.');
+    }
     return comOrigem(l.join('\n'));
   }
 
@@ -450,10 +507,12 @@
   function validar(tela) {
     var problema = function (chave, texto) { return { chave: chave, texto: texto }; };
     if (tela === 'inicio' && !R.tipo) return problema('tipo', 'Escolha uma opção.');
+    if (tela === 'origem' && !R.origem) return problema('origem', 'Escolha uma opção.');
     if (tela === 'produtos' && !lista('seguros').length) return problema('seguros', 'Marque pelo menos uma opção.');
     if (tela === 'dados') {
       if (vazio(R.nome) || R.nome.trim().length < 2) return problema('nome', 'Escreva seu nome.');
-      if (curto()) return null;
+      if (renovaCasa() && !R.ciente) return problema('ciente', 'Marque a caixa da Política de Privacidade para enviar.');
+      if (curto() || renovar()) return null;
       if (!ehEmpresa() && !vazio(R.nasc) && !dataValida(R.nasc.trim(), 16, 110))
         return problema('nasc', 'Confira a data de nascimento (dd/mm/aaaa).');
       var d = (R.doc || '').replace(/\D/g, '');
@@ -493,7 +552,7 @@
 
   var toastTimer = null;
   function incentivo(tela) {
-    var t = document.getElementById('cotToast'), txt = INCENTIVO[tela];
+    var t = document.getElementById('cotToast'), txt = (renovar() ? INCENTIVO_RENOVAR : INCENTIVO)[tela];
     clearTimeout(toastTimer);
     if (!txt || (tela === 'dados' && curto())) { t.hidden = true; return; }
     t.textContent = txt;
@@ -502,7 +561,7 @@
   }
 
   function render(focar) {
-    var html = { inicio: htmlInicio, produtos: htmlProdutos, dados: htmlDados, contato: htmlContato, fim: htmlFim }[cotTela];
+    var html = { inicio: htmlInicio, origem: htmlOrigem, produtos: htmlProdutos, dados: htmlDados, contato: htmlContato, fim: htmlFim }[cotTela];
     if (!html) { cotTela = 'inicio'; html = htmlInicio; }
     var tela = document.getElementById('cotTela');
     tela.innerHTML = html();
@@ -514,7 +573,7 @@
     document.getElementById('cotBarra').style.width = pct + '%';
     cot.querySelector('[data-cot="voltar"]').hidden = cotTela === 'inicio';
     cot.querySelector('.cot-acoes').hidden = cotTela === 'fim';
-    var envia = cotTela === 'contato';
+    var envia = ultima(cotTela);
     var avancar = document.getElementById('cotAvancar');
     avancar.innerHTML = envia ? '<svg class="icon icon-sm"><use href="#i-whatsapp"/></svg>Enviar para o WhatsApp' : 'Continuar';
     avancar.classList.toggle('btn-wa', envia);
@@ -544,7 +603,7 @@
   function avancar() {
     var p = validar(cotTela);
     if (p) return mostrarErro(p);
-    if (cotTela === 'contato') return enviar();
+    if (ultima(cotTela)) return enviar();
     var seq = sequencia();
     irPara(seq[seq.indexOf(cotTela) + 1]);
   }
@@ -621,7 +680,7 @@
         document.getElementById('cotErro').hidden = true;
         var k = e.target.getAttribute('data-k');
         /* Tela 1: escolher já avança. Trocar CPF/CNPJ muda os campos. */
-        if (k === 'tipo') { cotPreAplicar(); return avancar(); }
+        if (k === 'tipo' || k === 'origem') { cotPreAplicar(); return avancar(); }
         if (k === 'quem') {
           R.doc = '';
           render(false);
