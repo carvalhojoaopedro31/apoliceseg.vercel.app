@@ -130,8 +130,8 @@ a { color: var(--color-primary-700); }
 .site-header.scrolled { border-bottom-color: var(--color-neutral-200); box-shadow: var(--shadow-sm); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); height: var(--header-h); }
 .brand-lockup { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-.brand-logo { height: 56px; width: auto; }
-@media (max-width: 767px) { .brand-logo { height: 44px; } }
+.brand-logo { height: 64px; width: auto; }
+@media (max-width: 767px) { .brand-logo { height: 52px; } }
 .brand-text { font-weight: 800; font-size: var(--text-xl); color: var(--color-primary-900); letter-spacing: var(--tracking-tight); }
 .brand-text .accent { color: var(--color-primary-600); }
 .site-footer .brand-text { color: var(--color-white); }
@@ -314,7 +314,7 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 /* ---------- Footer escuro ---------- */
 .site-footer { background: var(--color-dark); color: var(--color-white); padding-block: var(--space-12) var(--space-8); }
 .footer-brand-row { display: flex; align-items: flex-end; gap: var(--space-6); margin-bottom: var(--space-10); }
-.footer-brand-row .brand-logo { height: 56px; }
+.footer-brand-row .brand-logo { height: 64px; }
 .footer-road { position: relative; flex: 1; height: 44px; border-bottom: 2px solid rgb(255 255 255 / 0.28); }
 .footer-car { position: absolute; left: 0; bottom: -3px; width: 80px; height: auto; color: var(--color-white); }
 .footer-road.is-driving .footer-car { animation: footer-drive 7s cubic-bezier(.45, 0, .25, 1) forwards; }
