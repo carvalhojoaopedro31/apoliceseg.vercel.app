@@ -11,8 +11,8 @@
      ================================================================ */
   var CONFIG = {
     whatsapp:  '551532320077',
-    ga4:       '',  /* ID reservado: G-SHJ9MBK0TJ. Coloque aqui junto com o Meta Pixel, que o aviso de cookies liga sozinho. */
-    metaPixel: '',
+    ga4:       'G-SHJ9MBK0TJ',  /* ID reservado: G-SHJ9MBK0TJ. Coloque aqui junto com o Meta Pixel, que o aviso de cookies liga sozinho. */
+    metaPixel: '2161474251428709',
     susep:     '202073554',
     cnpj:      '21.636.796/0001-43',
     razao:     'Apolice Seg Sorocaba Corretora de Seguros LTDA',
