@@ -634,6 +634,13 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 .cot-priv a { color: var(--color-primary-700); font-weight: 600; }
 .cot-declara { display: flex; gap: var(--space-3); align-items: flex-start; font-size: var(--text-sm); font-weight: 600; color: var(--color-neutral-800); cursor: pointer; }
 .cot-declara input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--color-primary-600); }
+.cot-declara a { color: var(--color-primary-700); }
+/* Faixa de incentivo entre as telas: curta e some sozinha. */
+.cot-toast { margin: 0; padding: var(--space-2) var(--space-4); border-radius: var(--radius-pill); background: rgb(22 138 91 / 0.1); color: var(--color-success); font-size: var(--text-sm); font-weight: 600; text-align: center; animation: cot-toast .25s ease-out; }
+.cot-toast[hidden] { display: none; }
+@keyframes cot-toast { from { opacity: 0; transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .cot-toast { animation: none; } }
+.cot-obrigado { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--color-success); color: var(--color-white); font-size: 28px; font-weight: 700; }
 
 /* ---------- Hero: escolha de proteção ---------- */
 .hero-quer { font-size: var(--text-base); font-weight: 700; color: var(--color-primary-900); margin-bottom: calc(var(--space-3) * -1 + 4px); }
