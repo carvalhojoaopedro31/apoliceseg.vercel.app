@@ -349,6 +349,14 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 @media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } }
 @media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } body { padding-bottom: 88px; } }
 
+/* Assistência 24h sempre à vista na rolagem */
+.a24-float { position: fixed; left: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 90; min-height: 56px; padding: 0 22px 0 18px; border-radius: var(--radius-pill); background: var(--color-primary-600); color: var(--color-white); font-size: var(--text-base); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .25s, background .25s; }
+.a24-float:hover { background: var(--color-primary-700); color: var(--color-white); transform: translateY(-2px); }
+.a24-float svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
+.nav-link--a24 { font-weight: 700; color: var(--color-primary-700); }
+@media (max-width: 639px) { .a24-float { left: auto; right: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); min-height: 48px; padding: 0 18px 0 14px; font-size: var(--text-sm); } }
+@media print { .a24-float { display: none; } }
+
 /* ---------- Página Sobre ---------- */
 .page-hero { padding-top: var(--header-h); background: linear-gradient(180deg, var(--color-secondary-100) 0%, var(--color-neutral-50) 100%); }
 .page-hero-inner { display: flex; flex-direction: column; gap: var(--space-5); max-width: 760px; padding-block: var(--space-16) var(--space-12); }
