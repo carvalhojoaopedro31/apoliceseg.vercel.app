@@ -1,2 +1,5 @@
 PENDENCIAS.md
 README.md
+.gitignore
+.vercelignore
+.env*

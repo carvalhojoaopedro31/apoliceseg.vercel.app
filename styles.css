@@ -130,8 +130,8 @@ a { color: var(--color-primary-700); }
 .site-header.scrolled { border-bottom-color: var(--color-neutral-200); box-shadow: var(--shadow-sm); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); height: var(--header-h); }
 .brand-lockup { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-.brand-logo { height: 56px; width: auto; }
-@media (max-width: 767px) { .brand-logo { height: 44px; } }
+.brand-logo { height: 64px; width: auto; }
+@media (max-width: 767px) { .brand-logo { height: 52px; } }
 .brand-text { font-weight: 800; font-size: var(--text-xl); color: var(--color-primary-900); letter-spacing: var(--tracking-tight); }
 .brand-text .accent { color: var(--color-primary-600); }
 .site-footer .brand-text { color: var(--color-white); }
@@ -314,7 +314,7 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 /* ---------- Footer escuro ---------- */
 .site-footer { background: var(--color-dark); color: var(--color-white); padding-block: var(--space-12) var(--space-8); }
 .footer-brand-row { display: flex; align-items: flex-end; gap: var(--space-6); margin-bottom: var(--space-10); }
-.footer-brand-row .brand-logo { height: 56px; }
+.footer-brand-row .brand-logo { height: 64px; }
 .footer-road { position: relative; flex: 1; height: 44px; border-bottom: 2px solid rgb(255 255 255 / 0.28); }
 .footer-car { position: absolute; left: 0; bottom: -3px; width: 80px; height: auto; color: var(--color-white); }
 .footer-road.is-driving .footer-car { animation: footer-drive 7s cubic-bezier(.45, 0, .25, 1) forwards; }
@@ -348,6 +348,14 @@ select.input { appearance: none; padding-right: 40px; background-image: url("dat
 .wa-float svg { width: 26px; height: 26px; fill: currentColor; flex-shrink: 0; }
 @media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } }
 @media (max-width: 639px) { .wa-float { left: 16px; right: 16px; justify-content: center; } body { padding-bottom: 88px; } }
+
+/* Assistência 24h sempre à vista na rolagem */
+.a24-float { position: fixed; left: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 90; min-height: 56px; padding: 0 22px 0 18px; border-radius: var(--radius-pill); background: var(--color-primary-600); color: var(--color-white); font-size: var(--text-base); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .25s, background .25s; }
+.a24-float:hover { background: var(--color-primary-700); color: var(--color-white); transform: translateY(-2px); }
+.a24-float svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
+.nav-link--a24 { font-weight: 700; color: var(--color-primary-700); }
+@media (max-width: 639px) { .a24-float { left: auto; right: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); min-height: 48px; padding: 0 18px 0 14px; font-size: var(--text-sm); } }
+@media print { .a24-float { display: none; } }
 
 /* ---------- Página Sobre ---------- */
 .page-hero { padding-top: var(--header-h); background: linear-gradient(180deg, var(--color-secondary-100) 0%, var(--color-neutral-50) 100%); }
@@ -634,6 +642,13 @@ textarea.input { min-height: 88px; padding-block: 12px; resize: vertical; font: 
 .cot-priv a { color: var(--color-primary-700); font-weight: 600; }
 .cot-declara { display: flex; gap: var(--space-3); align-items: flex-start; font-size: var(--text-sm); font-weight: 600; color: var(--color-neutral-800); cursor: pointer; }
 .cot-declara input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--color-primary-600); }
+.cot-declara a { color: var(--color-primary-700); }
+/* Faixa de incentivo entre as telas: curta e some sozinha. */
+.cot-toast { margin: 0; padding: var(--space-2) var(--space-4); border-radius: var(--radius-pill); background: rgb(22 138 91 / 0.1); color: var(--color-success); font-size: var(--text-sm); font-weight: 600; text-align: center; animation: cot-toast .25s ease-out; }
+.cot-toast[hidden] { display: none; }
+@keyframes cot-toast { from { opacity: 0; transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .cot-toast { animation: none; } }
+.cot-obrigado { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--color-success); color: var(--color-white); font-size: 28px; font-weight: 700; }
 
 /* ---------- Hero: escolha de proteção ---------- */
 .hero-quer { font-size: var(--text-base); font-weight: 700; color: var(--color-primary-900); margin-bottom: calc(var(--space-3) * -1 + 4px); }
